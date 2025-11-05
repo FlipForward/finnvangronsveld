@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [displayedFinn, setDisplayedFinn] = useState("");
+  const [displayedVangronsveld, setDisplayedVangronsveld] = useState("");
+  const [typingComplete, setTypingComplete] = useState(false);
+
+  const finn = "FINN";
+  const vangronsveld = "VANGRONSVELD";
 
   useEffect(() => {
     // Trigger animation after loading screen completes (2800ms)
@@ -9,8 +15,35 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const finn = "FINN";
-  const vangronsveld = "VANGRONSVELD";
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    let finnIndex = 0;
+    let vansgronsIndex = 0;
+
+    // Type FINN first
+    const finnInterval = setInterval(() => {
+      if (finnIndex < finn.length) {
+        setDisplayedFinn(finn.slice(0, finnIndex + 1));
+        finnIndex++;
+      } else {
+        clearInterval(finnInterval);
+        
+        // Then type VANGRONSVELD
+        const vansgronsInterval = setInterval(() => {
+          if (vansgronsIndex < vangronsveld.length) {
+            setDisplayedVangronsveld(vangronsveld.slice(0, vansgronsIndex + 1));
+            vansgronsIndex++;
+          } else {
+            clearInterval(vansgronsInterval);
+            setTypingComplete(true);
+          }
+        }, 40);
+      }
+    }, 50);
+
+    return () => clearInterval(finnInterval);
+  }, [isLoaded, finn, vangronsveld]);
 
   return (
     <section 
@@ -22,50 +55,52 @@ const Hero = () => {
       <div className="relative">
         {/* Top rule */}
         <div 
-          className={`w-full h-[2px] bg-hero-accent mb-6 md:mb-8 origin-center ${
-            isLoaded ? 'animate-rule-draw' : 'scale-x-0'
+          className={`w-full h-[2px] bg-hero-accent mb-6 md:mb-8 origin-center transition-transform duration-500 ${
+            typingComplete ? 'scale-x-100' : 'scale-x-0'
           }`}
-          style={{ animationDelay: '0.3s' }}
         />
 
         {/* Wordmark */}
-        <div 
-          className={`opacity-0 ${isLoaded ? 'animate-hero-fade-up' : ''}`}
-          style={{ animationDelay: '0.1s' }}
-        >
+        <div>
           {/* FINN - smaller line */}
           <h1 
-            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em] mb-6 md:mb-8"
+            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em] mb-6 md:mb-8 min-h-[1em]"
             style={{
               fontSize: 'clamp(3.5rem, 12vw, 10rem)',
             }}
           >
-            {finn}
+            {displayedFinn}
+            {isLoaded && displayedFinn.length < finn.length && (
+              <span className="animate-pulse">|</span>
+            )}
           </h1>
 
           {/* VANGRONSVELD - dominant line */}
           <h1 
-            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em]"
+            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em] min-h-[1em]"
             style={{
               fontSize: 'clamp(3rem, 16vw, 16rem)',
             }}
           >
-            {vangronsveld}
+            {displayedVangronsveld}
+            {displayedFinn.length === finn.length && displayedVangronsveld.length < vangronsveld.length && (
+              <span className="animate-pulse">|</span>
+            )}
           </h1>
         </div>
 
         {/* Bottom rule */}
         <div 
-          className={`w-full h-[2px] bg-hero-accent mt-6 md:mt-8 origin-center ${
-            isLoaded ? 'animate-rule-draw' : 'scale-x-0'
+          className={`w-full h-[2px] bg-hero-accent mt-6 md:mt-8 origin-center transition-transform duration-500 ${
+            typingComplete ? 'scale-x-100' : 'scale-x-0'
           }`}
-          style={{ animationDelay: '0.4s' }}
         />
 
         {/* Micro labels below rules */}
         <div 
-          className={`flex justify-between gap-4 mt-4 opacity-0 ${isLoaded ? 'animate-hero-fade-up' : ''}`}
-          style={{ animationDelay: '0.6s' }}
+          className={`flex justify-between gap-4 mt-4 transition-opacity duration-500 ${
+            typingComplete ? 'opacity-100' : 'opacity-0'
+          }`}
         >
           <span className="text-[10px] md:text-xs text-hero-accent/60 uppercase tracking-wider">
             IT STUDENT
@@ -79,12 +114,11 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Down arrow - appears after 3 seconds */}
+      {/* Down arrow - appears after typing is complete */}
       <div 
-        className={`absolute bottom-12 left-1/2 -translate-x-1/2 opacity-0 ${
-          isLoaded ? 'animate-hero-fade-up' : ''
+        className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-opacity duration-500 ${
+          typingComplete ? 'opacity-100' : 'opacity-0'
         }`}
-        style={{ animationDelay: '3s' }}
       >
         <div className="flex flex-col items-center gap-2">
           <svg
