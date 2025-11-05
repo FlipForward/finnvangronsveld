@@ -4,8 +4,8 @@ const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Trigger animation after mount
-    const timer = setTimeout(() => setIsLoaded(true), 100);
+    // Trigger animation after loading screen completes (2800ms)
+    const timer = setTimeout(() => setIsLoaded(true), 2900);
     return () => clearTimeout(timer);
   }, []);
 
