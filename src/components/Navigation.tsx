@@ -10,7 +10,12 @@ const Navigation = () => {
     <nav className="fixed top-6 left-0 right-0 z-50 px-6 md:px-12 lg:px-16">
       {/* Icon in top center */}
       <div className="absolute left-1/2 -translate-x-1/2 top-0">
-        <img src="/icon.png" alt="Icon" className="w-10 h-10 md:w-12 md:h-12 brightness-0 invert" style={{ filter: 'brightness(0) saturate(100%) invert(85%) sepia(35%) saturate(2719%) hue-rotate(136deg) brightness(94%) contrast(101%)' }} />
+        <img 
+          src="/icon.png" 
+          alt="Icon" 
+          className="w-10 h-10 md:w-12 md:h-12"
+          style={{ filter: 'brightness(0) saturate(100%) invert(85%) sepia(35%) saturate(2719%) hue-rotate(136deg) brightness(94%) contrast(101%)' }} 
+        />
       </div>
 
       <div className="flex items-center justify-between">
