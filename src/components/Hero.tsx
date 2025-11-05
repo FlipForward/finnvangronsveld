@@ -10,12 +10,12 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-16 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-20 md:pt-32">
       {/* Wordmark container */}
       <div className="relative">
         {/* Top rule */}
         <div 
-          className={`w-full h-[1px] bg-hero-accent mb-4 md:mb-6 origin-center ${
+          className={`w-full h-[2px] bg-hero-accent mb-3 md:mb-4 origin-center ${
             isLoaded ? 'animate-rule-draw' : 'scale-x-0'
           }`}
           style={{ animationDelay: '0.3s' }}
@@ -28,7 +28,7 @@ const Hero = () => {
         >
           {/* FINN - smaller line */}
           <h1 
-            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em] mb-1"
+            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em] mb-4 md:mb-6"
             style={{
               fontSize: 'clamp(3.5rem, 12vw, 10rem)',
             }}
@@ -49,7 +49,7 @@ const Hero = () => {
 
         {/* Bottom rule */}
         <div 
-          className={`w-full h-[1px] bg-hero-accent mt-4 md:mt-6 origin-center ${
+          className={`w-full h-[2px] bg-hero-accent mt-3 md:mt-4 origin-center ${
             isLoaded ? 'animate-rule-draw' : 'scale-x-0'
           }`}
           style={{ animationDelay: '0.4s' }}
