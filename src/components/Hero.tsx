@@ -10,12 +10,12 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-20 md:pt-32">
+    <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-32 md:pt-40">
       {/* Wordmark container */}
       <div className="relative">
         {/* Top rule */}
         <div 
-          className={`w-full h-[2px] bg-hero-accent mb-3 md:mb-4 origin-center ${
+          className={`w-full h-[2px] bg-hero-accent mb-6 md:mb-8 origin-center ${
             isLoaded ? 'animate-rule-draw' : 'scale-x-0'
           }`}
           style={{ animationDelay: '0.3s' }}
@@ -28,7 +28,7 @@ const Hero = () => {
         >
           {/* FINN - smaller line */}
           <h1 
-            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em] mb-4 md:mb-6"
+            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em] mb-6 md:mb-8"
             style={{
               fontSize: 'clamp(3.5rem, 12vw, 10rem)',
             }}
@@ -49,7 +49,7 @@ const Hero = () => {
 
         {/* Bottom rule */}
         <div 
-          className={`w-full h-[2px] bg-hero-accent mt-3 md:mt-4 origin-center ${
+          className={`w-full h-[2px] bg-hero-accent mt-6 md:mt-8 origin-center ${
             isLoaded ? 'animate-rule-draw' : 'scale-x-0'
           }`}
           style={{ animationDelay: '0.4s' }}
@@ -69,6 +69,30 @@ const Hero = () => {
           <span className="text-[10px] md:text-xs text-hero-accent/60 uppercase tracking-wider">
             STREAMER
           </span>
+        </div>
+      </div>
+
+      {/* Down arrow - appears after 3 seconds */}
+      <div 
+        className={`absolute bottom-12 left-1/2 -translate-x-1/2 opacity-0 ${
+          isLoaded ? 'animate-hero-fade-up' : ''
+        }`}
+        style={{ animationDelay: '3s' }}
+      >
+        <div className="flex flex-col items-center gap-2">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-hero-accent/40 animate-bounce"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
         </div>
       </div>
     </section>

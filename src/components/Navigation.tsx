@@ -15,22 +15,16 @@ const Navigation = () => {
             Home
           </NavLink>
           <NavLink
-            to="/werk"
+            to="/about"
             className="px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors rounded-full"
           >
-            Werk
+            About Me
           </NavLink>
           <NavLink
-            to="/studio"
+            to="/portfolio"
             className="px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors rounded-full"
           >
-            Studio
-          </NavLink>
-          <NavLink
-            to="/contact"
-            className="px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors rounded-full"
-          >
-            Contact
+            Portfolio
           </NavLink>
         </div>
 
@@ -47,8 +41,7 @@ const Navigation = () => {
             size="sm"
             className="rounded-full bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20"
           >
-            <span className="w-2 h-2 rounded-full bg-hero-accent mr-2" />
-            Projectaanvraag
+            Contact
           </Button>
         </div>
       </div>
