@@ -23,22 +23,22 @@ const Navigation = () => {
         <div className="hidden md:flex items-center gap-1 rounded-full bg-hero-accent px-2 py-1.5">
           <NavLink
             to="/"
-            className="px-3 py-1.5 text-sm font-medium transition-colors rounded-full text-background relative"
-            activeClassName="before:absolute before:inset-0 before:bg-background before:rounded-full before:-z-10 before:scale-95"
+            className="px-3 py-1.5 text-sm font-medium transition-colors rounded-full text-background/70 hover:text-background relative"
+            activeClassName="bg-background text-hero-accent"
           >
             Home
           </NavLink>
           <NavLink
             to="/about"
             className="px-3 py-1.5 text-sm font-medium text-background/70 hover:text-background transition-colors rounded-full relative"
-            activeClassName="before:absolute before:inset-0 before:bg-background before:rounded-full before:-z-10 before:scale-95 text-background"
+            activeClassName="bg-background text-hero-accent"
           >
             About Me
           </NavLink>
           <NavLink
             to="/portfolio"
             className="px-3 py-1.5 text-sm font-medium text-background/70 hover:text-background transition-colors rounded-full relative"
-            activeClassName="before:absolute before:inset-0 before:bg-background before:rounded-full before:-z-10 before:scale-95 text-background"
+            activeClassName="bg-background text-hero-accent"
           >
             Portfolio
           </NavLink>
