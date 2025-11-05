@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useTypingSound } from "@/hooks/useTypingSound";
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [displayedFinn, setDisplayedFinn] = useState("");
   const [displayedVangronsveld, setDisplayedVangronsveld] = useState("");
   const [typingComplete, setTypingComplete] = useState(false);
+  const { playTypingSound } = useTypingSound();
 
   const finn = "FINN";
   const vangronsveld = "VANGRONSVELD";
@@ -25,6 +27,7 @@ const Hero = () => {
     const finnInterval = setInterval(() => {
       if (finnIndex < finn.length) {
         setDisplayedFinn(finn.slice(0, finnIndex + 1));
+        playTypingSound();
         finnIndex++;
       } else {
         clearInterval(finnInterval);
@@ -33,6 +36,7 @@ const Hero = () => {
         const vansgronsInterval = setInterval(() => {
           if (vansgronsIndex < vangronsveld.length) {
             setDisplayedVangronsveld(vangronsveld.slice(0, vansgronsIndex + 1));
+            playTypingSound();
             vansgronsIndex++;
           } else {
             clearInterval(vansgronsInterval);
@@ -43,7 +47,7 @@ const Hero = () => {
     }, 50);
 
     return () => clearInterval(finnInterval);
-  }, [isLoaded, finn, vangronsveld]);
+  }, [isLoaded, finn, vangronsveld, playTypingSound]);
 
   return (
     <section 
@@ -64,7 +68,7 @@ const Hero = () => {
         <div>
           {/* FINN - smaller line */}
           <h1 
-            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em] mb-6 md:mb-8 min-h-[1em]"
+            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em] mb-6 md:mb-8"
             style={{
               fontSize: 'clamp(3.5rem, 12vw, 10rem)',
             }}
@@ -77,7 +81,7 @@ const Hero = () => {
 
           {/* VANGRONSVELD - dominant line */}
           <h1 
-            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em] min-h-[1em]"
+            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em]"
             style={{
               fontSize: 'clamp(3rem, 16vw, 16rem)',
             }}
