@@ -11,18 +11,11 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-16 overflow-hidden">
-      {/* Top right blurb */}
-      <div className="absolute top-32 right-6 md:right-12 lg:right-16 max-w-[28ch] text-right">
-        <p className="text-sm md:text-base text-muted-soft leading-relaxed">
-          Al meer dan 20 jaar helpen wij merken te definiëren wat hen bijzonder maakt en brengen dit tot uiting in digitale merkbelevingen.
-        </p>
-      </div>
-
       {/* Wordmark container */}
       <div className="relative">
         {/* Top rule */}
         <div 
-          className={`w-full h-[1px] bg-hero-accent mb-8 md:mb-12 origin-center ${
+          className={`w-full h-[1px] bg-hero-accent mb-4 md:mb-6 origin-center ${
             isLoaded ? 'animate-rule-draw' : 'scale-x-0'
           }`}
           style={{ animationDelay: '0.3s' }}
@@ -35,9 +28,9 @@ const Hero = () => {
         >
           {/* FINN - smaller line */}
           <h1 
-            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.02em] mb-2"
+            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em] mb-1"
             style={{
-              fontSize: 'clamp(3rem, 10vw, 8rem)',
+              fontSize: 'clamp(3.5rem, 12vw, 10rem)',
             }}
           >
             FINN
@@ -45,9 +38,9 @@ const Hero = () => {
 
           {/* VANGRONSVELD - dominant line */}
           <h1 
-            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.02em]"
+            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em]"
             style={{
-              fontSize: 'clamp(2.5rem, 14vw, 13rem)',
+              fontSize: 'clamp(3rem, 16vw, 16rem)',
             }}
           >
             VANGRONSVELD
@@ -56,7 +49,7 @@ const Hero = () => {
 
         {/* Bottom rule */}
         <div 
-          className={`w-full h-[1px] bg-hero-accent mt-8 md:mt-12 origin-center ${
+          className={`w-full h-[1px] bg-hero-accent mt-4 md:mt-6 origin-center ${
             isLoaded ? 'animate-rule-draw' : 'scale-x-0'
           }`}
           style={{ animationDelay: '0.4s' }}
@@ -64,17 +57,17 @@ const Hero = () => {
 
         {/* Micro labels below rules */}
         <div 
-          className={`flex justify-between mt-4 opacity-0 ${isLoaded ? 'animate-hero-fade-up' : ''}`}
+          className={`flex justify-between gap-4 mt-4 opacity-0 ${isLoaded ? 'animate-hero-fade-up' : ''}`}
           style={{ animationDelay: '0.6s' }}
         >
           <span className="text-[10px] md:text-xs text-hero-accent/60 uppercase tracking-wider">
-            WIJ ZIJN DE JONGENS
+            IT STUDENT
           </span>
           <span className="text-[10px] md:text-xs text-hero-accent/60 uppercase tracking-wider">
-            WIJ MAKEN MERKEN
+            DJ + PRODUCER
           </span>
-          <span className="text-[10px] md:text-xs text-hero-accent/60 uppercase tracking-wider hidden md:inline">
-            WIJ HOUDEN VAN DIGITAAL
+          <span className="text-[10px] md:text-xs text-hero-accent/60 uppercase tracking-wider">
+            STREAMER
           </span>
         </div>
       </div>
