@@ -1,12 +1,21 @@
 import { NavLink } from "./NavLink";
 import { Button } from "./ui/button";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
 
 const Navigation = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <nav className="fixed top-6 left-0 right-0 z-50 px-6 md:px-12 lg:px-16">
+      {/* Icon in top center */}
+      <div className="absolute left-1/2 -translate-x-1/2 top-0">
+        <img src="/icon.png" alt="Icon" className="w-10 h-10 md:w-12 md:h-12" />
+      </div>
+
       <div className="flex items-center justify-between">
-        {/* Left nav pills */}
-        <div className="flex items-center gap-1 rounded-full border border-hero-accent/30 bg-black/50 backdrop-blur-sm px-2 py-2">
+        {/* Desktop nav pills */}
+        <div className="hidden md:flex items-center gap-1 rounded-full border border-hero-accent/30 bg-black/50 backdrop-blur-sm px-2 py-2">
           <NavLink
             to="/"
             className="px-4 py-2 text-sm font-medium transition-colors rounded-full"
@@ -28,8 +37,16 @@ const Navigation = () => {
           </NavLink>
         </div>
 
+        {/* Mobile burger button */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden p-2 rounded-full border border-hero-accent/30 bg-black/50 backdrop-blur-sm text-hero-accent"
+        >
+          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+
         {/* Right controls */}
-        <div className="flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-3">
           <Button
             variant="outline"
             size="sm"
@@ -45,6 +62,43 @@ const Navigation = () => {
           </Button>
         </div>
       </div>
+
+      {/* Mobile menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden absolute top-16 left-6 right-6 bg-black/95 backdrop-blur-sm border border-hero-accent/30 rounded-2xl p-4 z-50">
+          <div className="flex flex-col gap-2">
+            <NavLink
+              to="/"
+              className="px-4 py-3 text-sm font-medium transition-colors rounded-lg"
+              activeClassName="bg-hero-accent/10 text-hero-accent"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/about"
+              className="px-4 py-3 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors rounded-lg"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              About Me
+            </NavLink>
+            <NavLink
+              to="/portfolio"
+              className="px-4 py-3 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors rounded-lg"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Portfolio
+            </NavLink>
+            <div className="h-px bg-hero-accent/20 my-2" />
+            <Button
+              size="sm"
+              className="rounded-lg bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20"
+            >
+              Contact
+            </Button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
