@@ -49,16 +49,16 @@ const Hero = () => {
       Math.pow(mousePos.y - charCenterY, 2)
     );
     
-    // Proximity threshold (adjust for effect radius)
-    const maxDistance = 150;
+    // Proximity threshold (bigger effect radius)
+    const maxDistance = 200;
     const proximity = Math.max(0, 1 - distance / maxDistance);
     
-    // Font weight: 900 (normal) to 100 (thin) based on proximity
-    const fontWeight = 900 - (proximity * 700);
+    // Font weight: 900 (normal) to 100 (thin) based on proximity - bigger difference
+    const fontWeight = 900 - (proximity * 800);
     
     return {
       fontWeight: Math.round(fontWeight),
-      transition: "font-weight 0.15s ease-out",
+      transition: "font-weight 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)",
     };
   };
 

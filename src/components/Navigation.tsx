@@ -15,23 +15,25 @@ const Navigation = () => {
 
       <div className="flex items-center justify-between">
         {/* Desktop nav pills */}
-        <div className="hidden md:flex items-center gap-1 rounded-full border border-hero-accent/30 bg-black/50 backdrop-blur-sm px-2 py-2">
+        <div className="hidden md:flex items-center gap-1 rounded-full bg-hero-accent px-2 py-1.5">
           <NavLink
             to="/"
-            className="px-4 py-2 text-sm font-medium transition-colors rounded-full"
-            activeClassName="bg-hero-accent/10 text-hero-accent"
+            className="px-3 py-1.5 text-sm font-medium transition-colors rounded-full text-background relative"
+            activeClassName="before:absolute before:inset-0 before:bg-background before:rounded-full before:-z-10 before:scale-95"
           >
             Home
           </NavLink>
           <NavLink
             to="/about"
-            className="px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors rounded-full"
+            className="px-3 py-1.5 text-sm font-medium text-background/70 hover:text-background transition-colors rounded-full relative"
+            activeClassName="before:absolute before:inset-0 before:bg-background before:rounded-full before:-z-10 before:scale-95 text-background"
           >
             About Me
           </NavLink>
           <NavLink
             to="/portfolio"
-            className="px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors rounded-full"
+            className="px-3 py-1.5 text-sm font-medium text-background/70 hover:text-background transition-colors rounded-full relative"
+            activeClassName="before:absolute before:inset-0 before:bg-background before:rounded-full before:-z-10 before:scale-95 text-background"
           >
             Portfolio
           </NavLink>
@@ -40,7 +42,7 @@ const Navigation = () => {
         {/* Mobile burger button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-full border border-hero-accent/30 bg-black/50 backdrop-blur-sm text-hero-accent"
+          className="md:hidden p-2 rounded-full bg-hero-accent text-background"
         >
           {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
@@ -50,13 +52,13 @@ const Navigation = () => {
           <Button
             variant="outline"
             size="sm"
-            className="rounded-full border-hero-accent/30 text-foreground/70 hover:text-foreground hover:border-hero-accent/50"
+            className="rounded-full border-hero-accent/30 text-foreground/70 hover:text-foreground hover:border-hero-accent/50 h-8 px-3 py-1"
           >
             EN
           </Button>
           <Button
             size="sm"
-            className="rounded-full bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20"
+            className="rounded-full bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20 h-8 px-3 py-1"
           >
             Contact
           </Button>
