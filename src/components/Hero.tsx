@@ -29,7 +29,7 @@ const Hero = () => {
     }
   }, []);
 
-  // Calculate font weight based on distance from cursor
+  // Calculate smooth hover effect based on distance from cursor
   const getLetterStyle = (index: number, totalChars: number, lineRef: HTMLElement | null) => {
     if (!lineRef) return {};
     
@@ -49,16 +49,21 @@ const Hero = () => {
       Math.pow(mousePos.y - charCenterY, 2)
     );
     
-    // Proximity threshold (bigger effect radius)
-    const maxDistance = 200;
-    const proximity = Math.max(0, 1 - distance / maxDistance);
+    // Smooth falloff with larger radius
+    const maxDistance = 180;
+    const proximity = Math.max(0, Math.min(1, 1 - distance / maxDistance));
     
-    // Font weight: 900 (normal) to 100 (thin) based on proximity - bigger difference
-    const fontWeight = 900 - (proximity * 800);
+    // Smooth easing curve for more organic feel
+    const eased = proximity * proximity * (3 - 2 * proximity); // Smoothstep
+    
+    // Subtle scale and blur based on proximity
+    const scale = 1 + (eased * 0.15); // Subtle scale up near cursor
+    const blur = (1 - eased) * 1.5; // Blur when away from cursor
     
     return {
-      fontWeight: Math.round(fontWeight),
-      transition: "font-weight 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)",
+      transform: `scale(${scale})`,
+      filter: `blur(${blur}px)`,
+      transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
     };
   };
 
