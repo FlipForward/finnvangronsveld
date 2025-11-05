@@ -13,14 +13,20 @@ import LoadingScreen from "./components/LoadingScreen";
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => {
+    // Only show loading screen on first visit
+    return !sessionStorage.getItem('hasVisited');
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+        {isLoading && <LoadingScreen onComplete={() => {
+          setIsLoading(false);
+          sessionStorage.setItem('hasVisited', 'true');
+        }} />}
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />

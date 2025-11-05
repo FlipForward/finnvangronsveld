@@ -12,8 +12,9 @@ const Hero = () => {
   const vangronsveld = "VANGRONSVELD";
 
   useEffect(() => {
-    // Trigger animation after loading screen completes (2800ms)
-    const timer = setTimeout(() => setIsLoaded(true), 2900);
+    // Trigger animation immediately if returning, or after loading screen on first visit
+    const hasVisited = sessionStorage.getItem('hasVisited');
+    const timer = setTimeout(() => setIsLoaded(true), hasVisited ? 0 : 2900);
     return () => clearTimeout(timer);
   }, []);
 

@@ -9,6 +9,11 @@ export const useTypingSound = () => {
     }
 
     const ctx = audioContextRef.current;
+    
+    // Resume audio context if suspended (required for autoplay policy)
+    if (ctx.state === 'suspended') {
+      ctx.resume();
+    }
     const oscillator = ctx.createOscillator();
     const gainNode = ctx.createGain();
 
