@@ -42,10 +42,10 @@ const Navigation = () => {
         <div className="relative w-10 h-10 md:w-12 md:h-12">
           <ArrowUp 
             size={40}
-            className={`absolute inset-0 text-hero-accent animate-pulse transition-all duration-500 ${
+            className={`absolute inset-0 text-hero-accent transition-all duration-500 ${
               showArrow 
-                ? 'opacity-100 scale-100 rotate-0' 
-                : 'opacity-0 scale-50 -rotate-90'
+                ? 'opacity-100 scale-100 rotate-0 pointer-events-auto' 
+                : 'opacity-0 scale-50 -rotate-90 pointer-events-none'
             }`}
             strokeWidth={2}
           />
@@ -54,8 +54,8 @@ const Navigation = () => {
             alt="Icon" 
             className={`absolute inset-0 w-full h-full transition-all duration-500 ${
               showArrow 
-                ? 'opacity-0 scale-50 rotate-90' 
-                : 'opacity-100 scale-100 rotate-0'
+                ? 'opacity-0 scale-50 rotate-90 pointer-events-none' 
+                : 'opacity-100 scale-100 rotate-0 pointer-events-auto'
             }`}
             style={{ filter: 'brightness(0) saturate(100%) invert(85%) sepia(35%) saturate(2719%) hue-rotate(136deg) brightness(94%) contrast(101%)' }} 
           />
