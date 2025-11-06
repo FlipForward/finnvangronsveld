@@ -191,8 +191,8 @@ const Hero = () => {
           typingComplete ? 'opacity-100' : 'opacity-0'
         } animate-bounce`}
         style={{
-          bottom: '42px',
-          left: 'calc(50% - 4px)',
+          bottom: '36px',
+          left: 'calc(50% - 8px)',
           transform: 'translateX(-50%)',
           animationDuration: '3s',
           animationPlayState: isHovering ? 'paused' : 'running',
