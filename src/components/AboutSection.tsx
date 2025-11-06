@@ -32,6 +32,7 @@ const AboutSection = () => {
 
   return (
     <section
+      id="about-section"
       ref={sectionRef}
       className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-16 py-20 overflow-hidden"
     >

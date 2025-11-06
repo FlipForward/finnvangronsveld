@@ -122,10 +122,15 @@ const Hero = () => {
       </div>
 
       {/* Down arrow - appears after typing is complete */}
-      <div 
-        className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-opacity duration-500 ${
+      <button
+        onClick={() => {
+          const aboutSection = document.querySelector('#about-section');
+          aboutSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }}
+        className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-500 hover:scale-110 cursor-pointer ${
           typingComplete ? 'opacity-100' : 'opacity-0'
         }`}
+        aria-label="Scroll to about section"
       >
         <div className="flex flex-col items-center gap-2">
           <svg
@@ -137,12 +142,12 @@ const Hero = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-hero-accent/40 animate-bounce"
+            className="text-hero-accent/40 hover:text-hero-accent/60 transition-colors animate-bounce"
           >
             <polyline points="6 9 12 15 18 9" />
           </svg>
         </div>
-      </div>
+      </button>
     </section>
   );
 };
