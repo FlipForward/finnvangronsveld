@@ -11,9 +11,8 @@ export const useBackgroundMusic = () => {
     audioRef.current.loop = true;
     audioRef.current.volume = 0;
 
-    // Check if user has entered the site
-    const hasVisited = sessionStorage.getItem('hasVisited');
-    const delay = hasVisited ? 0 : 1000;
+    // Start music after enter screen with fade in
+    const delay = 800;
 
     const timer = setTimeout(() => {
       if (audioRef.current) {

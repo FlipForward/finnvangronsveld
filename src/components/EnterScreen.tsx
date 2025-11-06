@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import feedbackHit from "@/assets/feedback-hit.wav";
+import feedbackHit from "@/assets/feedback-hit.mp4";
 
 interface EnterScreenProps {
   onEnter: () => void;
@@ -43,9 +43,9 @@ const EnterScreen = ({ onEnter }: EnterScreenProps) => {
   }, [showText]);
 
   const handleEnter = () => {
-    // Play feedback hit
+    // Play feedback hit instantly at full volume
     audioRef.current = new Audio(feedbackHit);
-    audioRef.current.volume = 0.6;
+    audioRef.current.volume = 1.0;
     audioRef.current.play().catch(err => console.log('Feedback hit play failed:', err));
     
     setIsExiting(true);
