@@ -56,10 +56,13 @@ const Hero = () => {
 
   return (
     <section 
-      className={`relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-32 md:pt-40 transition-opacity duration-500 ${
+      className={`group relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-32 md:pt-40 transition-opacity duration-500 ${
         isLoaded ? 'opacity-100' : 'opacity-0'
       }`}
     >
+      {/* Cyan glow overlay */}
+      <div className="pointer-events-none fixed inset-0 bg-hero-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-out" style={{ backdropFilter: 'blur(100px)' }} />
+
       {/* Wordmark container */}
       <div className="relative">
         {/* Top rule */}
@@ -130,14 +133,14 @@ const Hero = () => {
           aboutSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }}
         onMouseEnter={playWhamSound}
-        className={`group absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-300 hover:scale-110 cursor-pointer ${
+        className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-300 hover:scale-110 cursor-pointer ${
           typingComplete ? 'opacity-100' : 'opacity-0'
         }`}
         aria-label="Scroll to about section"
       >
         <div className="relative flex flex-col items-center gap-2">
           {/* Background circle that appears on hover */}
-          <div className="absolute inset-0 -m-8 bg-hero-accent rounded-full scale-0 group-hover:scale-100 transition-transform duration-300" />
+          <div className="absolute inset-0 -m-8 bg-hero-accent rounded-full scale-0 hover:scale-100 transition-transform duration-300" />
           
           <svg
             width="24"
@@ -148,7 +151,7 @@ const Hero = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="relative z-10 text-hero-accent group-hover:text-background transition-colors duration-300 animate-bounce group-hover:animate-none"
+            className="relative z-10 text-hero-accent hover:text-background transition-colors duration-300 animate-bounce hover:animate-none"
           >
             <polyline points="6 9 12 15 18 9" />
           </svg>
