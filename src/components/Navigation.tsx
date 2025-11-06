@@ -35,9 +35,11 @@ const Navigation = () => {
       {/* Icon in top center / Arrow when scrolled */}
       <button 
         onClick={scrollToTop}
-        className="absolute left-1/2 -translate-x-1/2 top-0 cursor-pointer hover:scale-110"
+        className={`absolute left-1/2 -translate-x-1/2 top-0 cursor-pointer transition-transform duration-300 ${
+          showArrow ? 'hover:scale-110' : ''
+        }`}
       >
-        <div className={`transition-all duration-500 ${showArrow ? 'rotate-180' : 'rotate-0'}`}>
+        <div className={`transition-all duration-500`}>
           {showArrow ? (
             <ArrowUp 
               size={40}
