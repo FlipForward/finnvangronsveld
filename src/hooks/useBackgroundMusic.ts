@@ -11,24 +11,24 @@ export const useBackgroundMusic = () => {
     audioRef.current.loop = true;
     audioRef.current.volume = 0;
 
-    // Check if loading screen has completed
+    // Check if user has entered the site
     const hasVisited = sessionStorage.getItem('hasVisited');
-    const delay = hasVisited ? 0 : 5800;
+    const delay = hasVisited ? 0 : 1000;
 
     const timer = setTimeout(() => {
       if (audioRef.current) {
         audioRef.current.play().catch(err => console.log('Background music autoplay failed:', err));
         
-        // Fade in over 2 seconds
+        // Fade in over 3 seconds
         let currentVolume = 0;
         fadeIntervalRef.current = setInterval(() => {
           if (audioRef.current && currentVolume < volume) {
-            currentVolume = Math.min(currentVolume + 0.01, volume);
+            currentVolume = Math.min(currentVolume + 0.005, volume);
             audioRef.current.volume = currentVolume;
           } else if (fadeIntervalRef.current) {
             clearInterval(fadeIntervalRef.current);
           }
-        }, 20);
+        }, 30);
       }
     }, delay);
 

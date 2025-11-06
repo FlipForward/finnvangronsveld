@@ -10,7 +10,6 @@ import About from "./pages/About";
 import Portfolio from "./pages/Portfolio";
 import NotFound from "./pages/NotFound";
 import EnterScreen from "./components/EnterScreen";
-import LoadingScreen from "./components/LoadingScreen";
 
 const queryClient = new QueryClient();
 
@@ -18,7 +17,6 @@ const App = () => {
   const [showEnter, setShowEnter] = useState(() => {
     return !sessionStorage.getItem('hasVisited');
   });
-  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -28,10 +26,6 @@ const App = () => {
           <Sonner />
           {showEnter && <EnterScreen onEnter={() => {
             setShowEnter(false);
-            setIsLoading(true);
-          }} />}
-          {isLoading && <LoadingScreen onComplete={() => {
-            setIsLoading(false);
             sessionStorage.setItem('hasVisited', 'true');
           }} />}
           <BrowserRouter>

@@ -17,9 +17,9 @@ const Hero = () => {
   const vangronsveld = "VANGRONSVELD";
 
   useEffect(() => {
-    // Trigger animation immediately if returning, or after loading screen on first visit
+    // Trigger animation immediately if returning, or after enter screen on first visit
     const hasVisited = sessionStorage.getItem('hasVisited');
-    const timer = setTimeout(() => setIsLoaded(true), hasVisited ? 0 : 5900);
+    const timer = setTimeout(() => setIsLoaded(true), hasVisited ? 0 : 900);
     return () => clearTimeout(timer);
   }, []);
 
