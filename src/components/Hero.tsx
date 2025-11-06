@@ -166,11 +166,12 @@ const Hero = () => {
           setIsHovering(false);
           stopWhamSound();
         }}
-        className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-300 hover:scale-110 cursor-pointer z-10 ${
+        className={`absolute bottom-12 left-1/2 -translate-x-1/2 hover:scale-110 cursor-pointer z-10 ${
           typingComplete ? 'opacity-100' : 'opacity-0'
-        } ${!isHovering ? 'animate-bounce' : ''}`}
+        } animate-bounce`}
         style={{
-          animationDuration: !isHovering ? '3s' : undefined,
+          animationDuration: '3s',
+          animationPlayState: isHovering ? 'paused' : 'running',
         }}
         aria-label="Scroll to about section"
       >
