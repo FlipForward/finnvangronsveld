@@ -91,8 +91,8 @@ const Hero = () => {
       <div className="relative">
         {/* Construction notice */}
         <div 
-          className={`text-center mb-4 transition-opacity duration-500 ${
-            typingComplete ? 'opacity-100' : 'opacity-0'
+          className={`text-center mb-4 transition-all duration-1000 delay-300 ${
+            typingComplete ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
           }`}
         >
           <span className="text-[10px] md:text-xs text-hero-accent/40 uppercase tracking-wider italic">
