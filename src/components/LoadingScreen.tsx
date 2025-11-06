@@ -1,22 +1,43 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import ampRiser from "@/assets/amp-riser.wav";
+import feedbackHit from "@/assets/feedback-hit.wav";
 
 const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [isExiting, setIsExiting] = useState(false);
+  const ampRiserRef = useRef<HTMLAudioElement | null>(null);
+  const feedbackHitRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Wait 2 seconds before starting fade out
+    // Play amp riser on mount
+    ampRiserRef.current = new Audio(ampRiser);
+    feedbackHitRef.current = new Audio(feedbackHit);
+    ampRiserRef.current.volume = 0.5;
+    feedbackHitRef.current.volume = 0.6;
+    ampRiserRef.current.play().catch(err => console.log('Amp riser play failed:', err));
+
+    // Wait 5 seconds before starting fade out
     const exitTimer = setTimeout(() => {
       setIsExiting(true);
-    }, 2000);
+      // Play feedback hit when starting to fade
+      if (feedbackHitRef.current) {
+        feedbackHitRef.current.play().catch(err => console.log('Feedback hit play failed:', err));
+      }
+    }, 5000);
 
-    // Complete loading after fade out animation (2s + 0.8s fade)
+    // Complete loading after fade out animation (5s + 0.8s fade)
     const completeTimer = setTimeout(() => {
       onComplete();
-    }, 2800);
+    }, 5800);
 
     return () => {
       clearTimeout(exitTimer);
       clearTimeout(completeTimer);
+      if (ampRiserRef.current) {
+        ampRiserRef.current.pause();
+      }
+      if (feedbackHitRef.current) {
+        feedbackHitRef.current.pause();
+      }
     };
   }, [onComplete]);
 

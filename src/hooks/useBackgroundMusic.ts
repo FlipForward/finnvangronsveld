@@ -13,7 +13,7 @@ export const useBackgroundMusic = () => {
 
     // Check if loading screen has completed
     const hasVisited = sessionStorage.getItem('hasVisited');
-    const delay = hasVisited ? 0 : 2800;
+    const delay = hasVisited ? 0 : 5800;
 
     const timer = setTimeout(() => {
       if (audioRef.current) {
