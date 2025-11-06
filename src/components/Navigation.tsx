@@ -2,9 +2,15 @@ import { NavLink } from "./NavLink";
 import { Button } from "./ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'nl' : 'en');
+  };
 
   return (
     <nav className="fixed top-6 left-0 right-0 z-50 px-6 md:px-12 lg:px-16">
@@ -26,21 +32,21 @@ const Navigation = () => {
             className="px-3 py-1.5 text-sm font-medium transition-colors rounded-full text-background/70 hover:text-background relative"
             activeClassName="bg-background text-hero-accent"
           >
-            Home
+            {t('nav.home')}
           </NavLink>
           <NavLink
             to="/about"
             className="px-3 py-1.5 text-sm font-medium text-background/70 hover:text-background transition-colors rounded-full relative"
             activeClassName="bg-background text-hero-accent"
           >
-            About Me
+            {t('nav.about')}
           </NavLink>
           <NavLink
             to="/portfolio"
             className="px-3 py-1.5 text-sm font-medium text-background/70 hover:text-background transition-colors rounded-full relative"
             activeClassName="bg-background text-hero-accent"
           >
-            Portfolio
+            {t('nav.portfolio')}
           </NavLink>
         </div>
 
@@ -57,15 +63,16 @@ const Navigation = () => {
           <Button
             variant="outline"
             size="sm"
+            onClick={toggleLanguage}
             className="rounded-full border-hero-accent/30 text-foreground/70 hover:text-foreground hover:border-hero-accent/50 h-8 px-3 py-1"
           >
-            EN
+            {language.toUpperCase()}
           </Button>
           <Button
             size="sm"
             className="rounded-full bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20 h-8 px-3 py-1"
           >
-            Contact
+            {t('nav.contact')}
           </Button>
         </div>
       </div>
@@ -80,28 +87,35 @@ const Navigation = () => {
               activeClassName="bg-hero-accent/10 text-hero-accent"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Home
+              {t('nav.home')}
             </NavLink>
             <NavLink
               to="/about"
               className="px-4 py-3 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors rounded-lg"
               onClick={() => setMobileMenuOpen(false)}
             >
-              About Me
+              {t('nav.about')}
             </NavLink>
             <NavLink
               to="/portfolio"
               className="px-4 py-3 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors rounded-lg"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Portfolio
+              {t('nav.portfolio')}
             </NavLink>
             <div className="h-px bg-hero-accent/20 my-2" />
             <Button
               size="sm"
+              onClick={toggleLanguage}
+              className="rounded-lg bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20 mb-2"
+            >
+              {language === 'en' ? 'NL' : 'EN'}
+            </Button>
+            <Button
+              size="sm"
               className="rounded-lg bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20"
             >
-              Contact
+              {t('nav.contact')}
             </Button>
           </div>
         </div>

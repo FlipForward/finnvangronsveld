@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTypingSound } from "@/hooks/useTypingSound";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -7,6 +8,7 @@ const Hero = () => {
   const [displayedVangronsveld, setDisplayedVangronsveld] = useState("");
   const [typingComplete, setTypingComplete] = useState(false);
   const { playTypingSound } = useTypingSound();
+  const { t } = useLanguage();
 
   const finn = "FINN";
   const vangronsveld = "VANGRONSVELD";
@@ -108,13 +110,13 @@ const Hero = () => {
           }`}
         >
           <span className="text-[10px] md:text-xs text-hero-accent/60 uppercase tracking-wider">
-            IT STUDENT
+            {t('hero.label1')}
           </span>
           <span className="text-[10px] md:text-xs text-hero-accent/60 uppercase tracking-wider">
-            DJ + PRODUCER
+            {t('hero.label2')}
           </span>
           <span className="text-[10px] md:text-xs text-hero-accent/60 uppercase tracking-wider">
-            STREAMER
+            {t('hero.label3')}
           </span>
         </div>
       </div>
