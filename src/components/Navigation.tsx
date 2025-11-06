@@ -39,21 +39,26 @@ const Navigation = () => {
           showArrow ? 'hover:scale-110' : ''
         }`}
       >
-        <div className={`transition-all duration-500`}>
-          {showArrow ? (
-            <ArrowUp 
-              size={40}
-              className="text-hero-accent animate-pulse"
-              strokeWidth={2}
-            />
-          ) : (
-            <img 
-              src="/icon.png" 
-              alt="Icon" 
-              className="w-10 h-10 md:w-12 md:h-12 transition-transform duration-500"
-              style={{ filter: 'brightness(0) saturate(100%) invert(85%) sepia(35%) saturate(2719%) hue-rotate(136deg) brightness(94%) contrast(101%)' }} 
-            />
-          )}
+        <div className="relative w-10 h-10 md:w-12 md:h-12">
+          <ArrowUp 
+            size={40}
+            className={`absolute inset-0 text-hero-accent animate-pulse transition-all duration-500 ${
+              showArrow 
+                ? 'opacity-100 scale-100 rotate-0' 
+                : 'opacity-0 scale-50 -rotate-90'
+            }`}
+            strokeWidth={2}
+          />
+          <img 
+            src="/icon.png" 
+            alt="Icon" 
+            className={`absolute inset-0 w-full h-full transition-all duration-500 ${
+              showArrow 
+                ? 'opacity-0 scale-50 rotate-90' 
+                : 'opacity-100 scale-100 rotate-0'
+            }`}
+            style={{ filter: 'brightness(0) saturate(100%) invert(85%) sepia(35%) saturate(2719%) hue-rotate(136deg) brightness(94%) contrast(101%)' }} 
+          />
         </div>
       </button>
 
