@@ -24,6 +24,7 @@ const translations = {
     // About
     'about.title': 'ABOUT ME',
     'about.content': 'Content coming soon...',
+    'about.cta': 'View My Work',
     
     // Portfolio
     'portfolio.title': 'PORTFOLIO',
@@ -49,6 +50,7 @@ const translations = {
     // About
     'about.title': 'OVER MIJ',
     'about.content': 'Inhoud komt binnenkort...',
+    'about.cta': 'Bekijk Mijn Werk',
     
     // Portfolio
     'portfolio.title': 'PORTFOLIO',
