@@ -63,26 +63,19 @@ const Hero = () => {
     >
       {/* Expanding cyan glow from arrow */}
       <div 
-        className="pointer-events-none fixed inset-0 flex items-center justify-center"
+        className="pointer-events-none fixed"
         style={{
+          bottom: '3rem',
+          left: '50%',
+          transform: 'translate(-50%, 50%)',
+          width: isHovering ? '400vmax' : '0',
+          height: isHovering ? '400vmax' : '0',
+          background: 'radial-gradient(circle, rgba(0, 255, 255, 0.9) 0%, rgba(0, 255, 255, 0.7) 10%, rgba(0, 255, 255, 0.5) 25%, rgba(0, 255, 255, 0.3) 40%, rgba(0, 255, 255, 0) 60%)',
+          transition: isHovering ? 'width 5000ms ease-out, height 5000ms ease-out, opacity 300ms ease-out' : 'width 300ms ease-out, height 300ms ease-out, opacity 300ms ease-out',
           opacity: isHovering ? 1 : 0,
-          transition: 'opacity 300ms ease-out',
+          borderRadius: '50%',
         }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '12vh',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: isHovering ? '400vmax' : '0',
-            height: isHovering ? '400vmax' : '0',
-            background: 'radial-gradient(circle, rgba(0, 255, 255, 0.9) 0%, rgba(0, 255, 255, 0.7) 10%, rgba(0, 255, 255, 0.5) 25%, rgba(0, 255, 255, 0.3) 40%, rgba(0, 255, 255, 0) 60%)',
-            transition: 'width 5000ms ease-out, height 5000ms ease-out',
-            borderRadius: '50%',
-          }}
-        />
-      </div>
+      />
 
       {/* Wordmark container */}
       <div className="relative">
