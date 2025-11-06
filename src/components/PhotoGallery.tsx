@@ -1,54 +1,63 @@
 import { useState } from "react";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 
-// Import gallery images
-import nature1 from "@/assets/gallery/nature-1.jpg";
-import nature2 from "@/assets/gallery/nature-2.jpg";
-import nature3 from "@/assets/gallery/nature-3.jpg";
-import urban1 from "@/assets/gallery/urban-1.jpg";
-import urban2 from "@/assets/gallery/urban-2.jpg";
-import urban3 from "@/assets/gallery/urban-3.jpg";
-import event1 from "@/assets/gallery/event-1.jpg";
-import event2 from "@/assets/gallery/event-2.jpg";
-import portrait1 from "@/assets/gallery/portrait-1.jpg";
+// Import real Pexels photos
+import photo1 from "@/assets/gallery/pexels-1.jpg";
+import photo2 from "@/assets/gallery/pexels-2.jpg";
+import photo3 from "@/assets/gallery/pexels-3.jpg";
+import photo4 from "@/assets/gallery/pexels-4.jpg";
+import photo5 from "@/assets/gallery/pexels-5.jpg";
+import photo6 from "@/assets/gallery/pexels-6.jpg";
+import photo7 from "@/assets/gallery/pexels-7.jpg";
+import photo8 from "@/assets/gallery/pexels-8.jpg";
+import photo9 from "@/assets/gallery/pexels-9.jpg";
+import photo10 from "@/assets/gallery/pexels-10.jpg";
+import photo11 from "@/assets/gallery/pexels-11.jpg";
+import photo12 from "@/assets/gallery/pexels-12.jpg";
 
 interface Photo {
   id: number;
   src: string;
   alt: string;
-  category: "all" | "nature" | "urban" | "events" | "portrait";
+  size: "small" | "medium" | "large" | "wide" | "tall";
 }
 
 const photos: Photo[] = [
-  { id: 1, src: nature1, alt: "Mountain landscape at golden hour", category: "nature" },
-  { id: 2, src: urban1, alt: "Modern city architecture at night", category: "urban" },
-  { id: 3, src: event1, alt: "Concert crowd with stage lighting", category: "events" },
-  { id: 4, src: nature2, alt: "Forest with sunbeams", category: "nature" },
-  { id: 5, src: urban2, alt: "Street photography with neon signs", category: "urban" },
-  { id: 6, src: event2, alt: "Music festival atmosphere", category: "events" },
-  { id: 7, src: portrait1, alt: "Creative portrait with dramatic lighting", category: "portrait" },
-  { id: 8, src: nature3, alt: "Coastal sunset with waves", category: "nature" },
-  { id: 9, src: urban3, alt: "Geometric architectural details", category: "urban" },
+  { id: 1, src: photo1, alt: "Photography by Finn Vangronsveld", size: "large" },
+  { id: 2, src: photo2, alt: "Photography by Finn Vangronsveld", size: "medium" },
+  { id: 3, src: photo3, alt: "Photography by Finn Vangronsveld", size: "tall" },
+  { id: 4, src: photo4, alt: "Photography by Finn Vangronsveld", size: "wide" },
+  { id: 5, src: photo5, alt: "Photography by Finn Vangronsveld", size: "medium" },
+  { id: 6, src: photo6, alt: "Photography by Finn Vangronsveld", size: "small" },
+  { id: 7, src: photo7, alt: "Photography by Finn Vangronsveld", size: "tall" },
+  { id: 8, src: photo8, alt: "Photography by Finn Vangronsveld", size: "medium" },
+  { id: 9, src: photo9, alt: "Photography by Finn Vangronsveld", size: "wide" },
+  { id: 10, src: photo10, alt: "Photography by Finn Vangronsveld", size: "small" },
+  { id: 11, src: photo11, alt: "Photography by Finn Vangronsveld", size: "medium" },
+  { id: 12, src: photo12, alt: "Photography by Finn Vangronsveld", size: "large" },
 ];
 
+const getSizeClasses = (size: Photo["size"]) => {
+  switch (size) {
+    case "large":
+      return "col-span-2 row-span-2";
+    case "wide":
+      return "col-span-2 row-span-1";
+    case "tall":
+      return "col-span-1 row-span-2";
+    case "medium":
+      return "col-span-1 row-span-1";
+    case "small":
+      return "col-span-1 row-span-1";
+    default:
+      return "col-span-1 row-span-1";
+  }
+};
+
 const PhotoGallery = () => {
-  const [selectedCategory, setSelectedCategory] = useState<"all" | "nature" | "urban" | "events" | "portrait">("all");
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-
-  const categories = [
-    { value: "all" as const, label: "All" },
-    { value: "nature" as const, label: "Nature" },
-    { value: "urban" as const, label: "Urban" },
-    { value: "events" as const, label: "Events" },
-    { value: "portrait" as const, label: "Portrait" },
-  ];
-
-  const filteredPhotos = selectedCategory === "all" 
-    ? photos 
-    : photos.filter(photo => photo.category === selectedCategory);
 
   const openLightbox = (photo: Photo) => {
     setSelectedPhoto(photo);
@@ -62,91 +71,98 @@ const PhotoGallery = () => {
 
   const navigatePhoto = (direction: "prev" | "next") => {
     if (!selectedPhoto) return;
-    const currentIndex = filteredPhotos.findIndex(p => p.id === selectedPhoto.id);
+    const currentIndex = photos.findIndex(p => p.id === selectedPhoto.id);
     let newIndex;
     
     if (direction === "prev") {
-      newIndex = currentIndex > 0 ? currentIndex - 1 : filteredPhotos.length - 1;
+      newIndex = currentIndex > 0 ? currentIndex - 1 : photos.length - 1;
     } else {
-      newIndex = currentIndex < filteredPhotos.length - 1 ? currentIndex + 1 : 0;
+      newIndex = currentIndex < photos.length - 1 ? currentIndex + 1 : 0;
     }
     
-    setSelectedPhoto(filteredPhotos[newIndex]);
+    setSelectedPhoto(photos[newIndex]);
   };
 
   return (
     <section className="relative min-h-screen py-20 px-6 md:px-12 lg:px-16">
-      {/* Grid background pattern */}
-      <div 
-        className="absolute inset-0 opacity-10 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(hsl(var(--hero-accent) / 0.3) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--hero-accent) / 0.3) 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px'
-        }}
-      />
+      {/* Abstract minimalistic grid background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Vertical lines */}
+        <div className="absolute left-[15%] top-0 bottom-0 w-px bg-hero-accent/10" />
+        <div className="absolute left-[35%] top-0 bottom-0 w-px bg-hero-accent/5" />
+        <div className="absolute left-[62%] top-0 bottom-0 w-px bg-hero-accent/10" />
+        <div className="absolute right-[18%] top-0 bottom-0 w-px bg-hero-accent/5" />
+        
+        {/* Horizontal lines */}
+        <div className="absolute top-[20%] left-0 right-0 h-px bg-hero-accent/10" />
+        <div className="absolute top-[45%] left-0 right-0 h-px bg-hero-accent/5" />
+        <div className="absolute top-[68%] left-0 right-0 h-px bg-hero-accent/10" />
+        
+        {/* Accent dots */}
+        <div className="absolute left-[15%] top-[20%] w-2 h-2 rounded-full bg-hero-accent/20" />
+        <div className="absolute left-[62%] top-[45%] w-2 h-2 rounded-full bg-hero-accent/20" />
+        <div className="absolute right-[18%] top-[68%] w-2 h-2 rounded-full bg-hero-accent/20" />
+      </div>
 
       <div className="relative max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-12">
           <h2 className="text-4xl md:text-6xl font-anton text-hero-accent mb-4">
-            PHOTOGRAPHY
+            PORTFOLIO
           </h2>
           <div className="w-24 h-1 bg-hero-accent mb-8" />
-          <p className="text-foreground/70 text-lg max-w-2xl">
-            Capturing moments through the lens — from nature's beauty to urban energy and event atmosphere.
-          </p>
-        </div>
-
-        {/* Category filters */}
-        <div className="flex flex-wrap gap-3 mb-12">
-          {categories.map((category) => (
-            <Button
-              key={category.value}
-              onClick={() => setSelectedCategory(category.value)}
-              variant={selectedCategory === category.value ? "default" : "outline"}
-              className={`rounded-full transition-all duration-300 ${
-                selectedCategory === category.value
-                  ? "bg-hero-accent text-background hover:bg-hero-accent/90"
-                  : "border-hero-accent/30 text-foreground/70 hover:border-hero-accent hover:text-hero-accent"
-              }`}
+          <div className="flex items-center justify-between">
+            <p className="text-foreground/70 text-lg max-w-2xl">
+              Visual storytelling through photography — capturing moments, emotions, and perspectives.
+            </p>
+            <a
+              href="https://www.pexels.com/@finnvangronsveld/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:flex items-center gap-2 px-4 py-2 border border-hero-accent/30 text-hero-accent rounded-full hover:bg-hero-accent/10 transition-all"
             >
-              {category.label}
-            </Button>
-          ))}
+              <span className="text-sm">View on Pexels</span>
+              <ExternalLink size={16} />
+            </a>
+          </div>
         </div>
 
-        {/* Photo grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredPhotos.map((photo, index) => (
+        {/* Masonry grid with varied sizes */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[200px] gap-4">
+          {photos.map((photo, index) => (
             <div
               key={photo.id}
-              className="group relative aspect-video cursor-pointer overflow-hidden rounded-2xl bg-hero-accent/5 border border-hero-accent/20 transition-all duration-300 hover:border-hero-accent hover:scale-105 animate-fade-in"
+              className={`group relative cursor-pointer overflow-hidden rounded-lg bg-hero-accent/5 border border-hero-accent/20 transition-all duration-300 hover:border-hero-accent hover:scale-[1.02] hover:z-10 animate-fade-in ${getSizeClasses(photo.size)}`}
               style={{ animationDelay: `${index * 50}ms` }}
               onClick={() => openLightbox(photo)}
             >
               <img
                 src={photo.src}
                 alt={photo.alt}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-white text-sm font-medium">{photo.alt}</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                  <p className="text-white text-xs font-medium">View Full Size</p>
+                  <ExternalLink size={14} className="text-white" />
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Empty state */}
-        {filteredPhotos.length === 0 && (
-          <div className="text-center py-20">
-            <p className="text-foreground/50 text-lg">No photos in this category yet.</p>
-          </div>
-        )}
+        {/* Pexels link for mobile */}
+        <div className="md:hidden flex justify-center mt-12">
+          <a
+            href="https://www.pexels.com/@finnvangronsveld/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-hero-accent/10 border-2 border-hero-accent text-hero-accent rounded-full hover:bg-hero-accent hover:text-background transition-all"
+          >
+            <span>View on Pexels</span>
+            <ExternalLink size={16} />
+          </a>
+        </div>
       </div>
 
       {/* Lightbox */}

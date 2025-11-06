@@ -5,10 +5,10 @@ const Portfolio = () => {
   return (
     <div className="bg-background text-foreground min-h-screen">
       <Navigation />
-      <div className="pt-32 px-6 md:px-12 lg:px-16">
-        <h1 className="text-4xl md:text-6xl font-anton text-hero-accent mb-8">PORTFOLIO</h1>
-        <p className="text-foreground/70 text-lg mb-12">
-          Explore my creative work across IT projects, music production, and photography.
+      <div className="pt-32 px-6 md:px-12 lg:px-16 pb-8">
+        <h1 className="text-4xl md:text-6xl font-anton text-hero-accent mb-4">PORTFOLIO</h1>
+        <p className="text-foreground/70 text-lg">
+          A visual journey through my photography work — moments captured, stories told.
         </p>
       </div>
       <PhotoGallery />
