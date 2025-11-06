@@ -65,12 +65,11 @@ const Hero = () => {
       <div 
         className="pointer-events-none fixed inset-0"
         style={{
-          opacity: isHovering ? 1 : 0,
-          transition: isHovering ? 'opacity 3000ms ease-out, transform 3000ms ease-out' : 'opacity 300ms ease-out, transform 300ms ease-out',
-          background: 'radial-gradient(circle at 50% 85vh, rgba(0, 255, 255, 0.9) 0%, rgba(0, 255, 255, 0.7) 15%, rgba(0, 255, 255, 0.5) 30%, rgba(0, 255, 255, 0.3) 45%, rgba(0, 255, 255, 0) 60%)',
-          backgroundSize: '300vmax 300vmax',
+          background: 'radial-gradient(circle at 50% 85vh, rgba(0, 255, 255, 0.9) 0%, rgba(0, 255, 255, 0.7) 10%, rgba(0, 255, 255, 0.5) 25%, rgba(0, 255, 255, 0.3) 40%, rgba(0, 255, 255, 0) 60%)',
+          backgroundSize: isHovering ? '400vmax 400vmax' : '0 0',
           backgroundPosition: 'center 85vh',
-          transform: isHovering ? 'scale(2)' : 'scale(0.1)',
+          transition: isHovering ? 'background-size 5000ms ease-out' : 'background-size 300ms ease-out',
+          opacity: isHovering ? 1 : 0,
         }}
       />
 
@@ -83,7 +82,7 @@ const Hero = () => {
           }`}
           style={{
             backgroundColor: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
-            transition: 'transform 500ms ease-out, background-color 3000ms linear',
+            transition: 'transform 500ms ease-out, background-color 5000ms linear',
           }}
         />
 
@@ -95,7 +94,7 @@ const Hero = () => {
             style={{
               fontSize: 'clamp(3.5rem, 12vw, 10rem)',
               color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
-              transition: 'color 3000ms linear',
+              transition: 'color 5000ms linear',
             }}
           >
             {displayedFinn}
@@ -110,7 +109,7 @@ const Hero = () => {
             style={{
               fontSize: 'clamp(3rem, 16vw, 16rem)',
               color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
-              transition: 'color 3000ms linear',
+              transition: 'color 5000ms linear',
             }}
           >
             {displayedVangronsveld}
@@ -127,7 +126,7 @@ const Hero = () => {
           }`}
           style={{
             backgroundColor: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
-            transition: 'transform 500ms ease-out, background-color 3000ms linear',
+            transition: 'transform 500ms ease-out, background-color 5000ms linear',
           }}
         />
 
