@@ -1,15 +1,30 @@
 import { NavLink } from "./NavLink";
 import { Button } from "./ui/button";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Menu, X, ArrowUp } from "lucide-react";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { VolumeSlider } from "./VolumeSlider";
 import { useBackgroundMusic } from "@/hooks/useBackgroundMusic";
 
 const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showArrow, setShowArrow] = useState(false);
   const { language, setLanguage, t } = useLanguage();
   const { volume, setVolume } = useBackgroundMusic();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show arrow when scrolled past 80% of viewport height
+      setShowArrow(window.scrollY > window.innerHeight * 0.8);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'nl' : 'en');
@@ -17,15 +32,26 @@ const Navigation = () => {
 
   return (
     <nav className="fixed top-6 left-0 right-0 z-50 px-6 md:px-12 lg:px-16">
-      {/* Icon in top center */}
-      <div className="absolute left-1/2 -translate-x-1/2 top-0">
-        <img 
-          src="/icon.png" 
-          alt="Icon" 
-          className="w-10 h-10 md:w-12 md:h-12"
-          style={{ filter: 'brightness(0) saturate(100%) invert(85%) sepia(35%) saturate(2719%) hue-rotate(136deg) brightness(94%) contrast(101%)' }} 
-        />
-      </div>
+      {/* Icon in top center / Arrow when scrolled */}
+      <button 
+        onClick={scrollToTop}
+        className="absolute left-1/2 -translate-x-1/2 top-0 transition-all duration-300 cursor-pointer hover:scale-110"
+      >
+        {showArrow ? (
+          <ArrowUp 
+            size={40}
+            className="text-hero-accent"
+            strokeWidth={2}
+          />
+        ) : (
+          <img 
+            src="/icon.png" 
+            alt="Icon" 
+            className="w-10 h-10 md:w-12 md:h-12"
+            style={{ filter: 'brightness(0) saturate(100%) invert(85%) sepia(35%) saturate(2719%) hue-rotate(136deg) brightness(94%) contrast(101%)' }} 
+          />
+        )}
+      </button>
 
       <div className="flex items-center justify-between">
         {/* Desktop nav pills */}
