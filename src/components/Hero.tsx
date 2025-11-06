@@ -65,7 +65,7 @@ const Hero = () => {
       <div 
         className="pointer-events-none fixed"
         style={{
-          bottom: '60px',
+          bottom: '48px',
           left: '50%',
           transform: 'translate(-50%, -50%)',
           width: isHovering ? '400vmax' : '0',
