@@ -3,10 +3,13 @@ import { Button } from "./ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { VolumeSlider } from "./VolumeSlider";
+import { useBackgroundMusic } from "@/hooks/useBackgroundMusic";
 
 const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const { volume, setVolume } = useBackgroundMusic();
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'nl' : 'en');
@@ -60,6 +63,7 @@ const Navigation = () => {
 
         {/* Right controls */}
         <div className="hidden md:flex items-center gap-3">
+          <VolumeSlider volume={volume} onVolumeChange={setVolume} />
           <Button
             variant="outline"
             size="sm"
