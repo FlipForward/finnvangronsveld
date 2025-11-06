@@ -15,6 +15,9 @@ import photo9 from "@/assets/gallery/pexels-9.jpg";
 import photo10 from "@/assets/gallery/pexels-10.jpg";
 import photo11 from "@/assets/gallery/pexels-11.jpg";
 import photo12 from "@/assets/gallery/pexels-12.jpg";
+import photo13 from "@/assets/gallery/pexels-13.jpg";
+import photo14 from "@/assets/gallery/pexels-14.jpg";
+import photo15 from "@/assets/gallery/pexels-15.jpg";
 
 interface Photo {
   id: number;
@@ -36,6 +39,9 @@ const photos: Photo[] = [
   { id: 10, src: photo10, alt: "Photography by Finn Vangronsveld", size: "small" },
   { id: 11, src: photo11, alt: "Photography by Finn Vangronsveld", size: "medium" },
   { id: 12, src: photo12, alt: "Photography by Finn Vangronsveld", size: "large" },
+  { id: 13, src: photo13, alt: "Photography by Finn Vangronsveld", size: "tall" },
+  { id: 14, src: photo14, alt: "Photography by Finn Vangronsveld", size: "wide" },
+  { id: 15, src: photo15, alt: "Photography by Finn Vangronsveld", size: "medium" },
 ];
 
 const getSizeClasses = (size: Photo["size"]) => {
