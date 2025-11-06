@@ -65,9 +65,9 @@ const Hero = () => {
       <div 
         className="pointer-events-none fixed"
         style={{
-          bottom: '3rem',
+          bottom: '60px',
           left: '50%',
-          transform: 'translate(-50%, 50%)',
+          transform: 'translate(-50%, -50%)',
           width: isHovering ? '400vmax' : '0',
           height: isHovering ? '400vmax' : '0',
           background: 'radial-gradient(circle, rgba(0, 255, 255, 0.9) 0%, rgba(0, 255, 255, 0.7) 10%, rgba(0, 255, 255, 0.5) 25%, rgba(0, 255, 255, 0.3) 40%, rgba(0, 255, 255, 0) 60%)',
@@ -79,6 +79,17 @@ const Hero = () => {
 
       {/* Wordmark container */}
       <div className="relative">
+        {/* Construction notice */}
+        <div 
+          className={`text-center mb-4 transition-opacity duration-500 ${
+            typingComplete ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <span className="text-[10px] md:text-xs text-hero-accent/40 uppercase tracking-wider italic">
+            Site under construction
+          </span>
+        </div>
+
         {/* Top rule */}
         <div 
           className={`w-full h-[2px] mb-6 md:mb-8 origin-center ${
