@@ -19,7 +19,7 @@ const Hero = () => {
   useEffect(() => {
     // Trigger animation immediately if returning, or after loading screen on first visit
     const hasVisited = sessionStorage.getItem('hasVisited');
-    const timer = setTimeout(() => setIsLoaded(true), hasVisited ? 0 : 2900);
+    const timer = setTimeout(() => setIsLoaded(true), hasVisited ? 0 : 5900);
     return () => clearTimeout(timer);
   }, []);
 
