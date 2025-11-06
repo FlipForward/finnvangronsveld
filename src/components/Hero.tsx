@@ -66,7 +66,7 @@ const Hero = () => {
         className="pointer-events-none fixed inset-0 transition-opacity"
         style={{
           opacity: isHovering ? 1 : 0,
-          transitionDuration: isHovering ? '5000ms' : '300ms',
+          transitionDuration: isHovering ? '8000ms' : '300ms',
           background: isHovering 
             ? 'radial-gradient(circle at 50% 85vh, rgba(0, 255, 255, 0.9) 0%, rgba(0, 255, 255, 0.7) 20%, rgba(0, 255, 255, 0.5) 40%, rgba(0, 255, 255, 0) 70%)'
             : 'radial-gradient(circle at 50% 85vh, rgba(0, 255, 255, 0) 0%, rgba(0, 255, 255, 0) 100%)',
@@ -83,7 +83,7 @@ const Hero = () => {
       }}>
         {/* Top rule */}
         <div 
-          className={`w-full h-[2px] mb-6 md:mb-8 origin-center transition-transform duration-500 transition-colors duration-[10000ms] ease-out ${
+          className={`w-full h-[2px] mb-6 md:mb-8 origin-center transition-transform duration-500 transition-colors duration-[15000ms] ease-out ${
             typingComplete ? 'scale-x-100' : 'scale-x-0'
           }`}
           style={{
@@ -95,7 +95,7 @@ const Hero = () => {
         <div>
           {/* FINN - smaller line */}
           <h1 
-            className="font-anton uppercase leading-[0.85] tracking-[-0.03em] mb-6 md:mb-8 transition-colors duration-[10000ms] ease-out"
+            className="font-anton uppercase leading-[0.85] tracking-[-0.03em] mb-6 md:mb-8 transition-colors duration-[15000ms] ease-out"
             style={{
               fontSize: 'clamp(3.5rem, 12vw, 10rem)',
               color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
@@ -109,7 +109,7 @@ const Hero = () => {
 
           {/* VANGRONSVELD - dominant line */}
           <h1 
-            className="font-anton uppercase leading-[0.85] tracking-[-0.03em] transition-colors duration-[10000ms] ease-out"
+            className="font-anton uppercase leading-[0.85] tracking-[-0.03em] transition-colors duration-[15000ms] ease-out"
             style={{
               fontSize: 'clamp(3rem, 16vw, 16rem)',
               color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
@@ -124,7 +124,7 @@ const Hero = () => {
 
         {/* Bottom rule */}
         <div 
-          className={`w-full h-[2px] mt-6 md:mt-8 origin-center transition-transform duration-500 transition-colors duration-[10000ms] ease-out ${
+          className={`w-full h-[2px] mt-6 md:mt-8 origin-center transition-transform duration-500 transition-colors duration-[15000ms] ease-out ${
             typingComplete ? 'scale-x-100' : 'scale-x-0'
           }`}
           style={{
