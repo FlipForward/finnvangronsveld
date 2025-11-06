@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTypingSound } from "@/hooks/useTypingSound";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useWhamSound } from "@/hooks/useWhamSound";
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -9,6 +10,7 @@ const Hero = () => {
   const [typingComplete, setTypingComplete] = useState(false);
   const { playTypingSound } = useTypingSound();
   const { t } = useLanguage();
+  const { playWhamSound } = useWhamSound();
 
   const finn = "FINN";
   const vangronsveld = "VANGRONSVELD";
@@ -127,12 +129,16 @@ const Hero = () => {
           const aboutSection = document.querySelector('#about-section');
           aboutSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }}
-        className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-500 hover:scale-110 cursor-pointer ${
+        onMouseEnter={playWhamSound}
+        className={`group absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-300 hover:scale-110 cursor-pointer ${
           typingComplete ? 'opacity-100' : 'opacity-0'
         }`}
         aria-label="Scroll to about section"
       >
-        <div className="flex flex-col items-center gap-2">
+        <div className="relative flex flex-col items-center gap-2">
+          {/* Background circle that appears on hover */}
+          <div className="absolute inset-0 -m-8 bg-hero-accent rounded-full scale-0 group-hover:scale-100 transition-transform duration-300" />
+          
           <svg
             width="24"
             height="24"
@@ -142,7 +148,7 @@ const Hero = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-hero-accent/40 hover:text-hero-accent/60 transition-colors animate-bounce"
+            className="relative z-10 text-hero-accent group-hover:text-background transition-colors duration-300 animate-bounce group-hover:animate-none"
           >
             <polyline points="6 9 12 15 18 9" />
           </svg>
