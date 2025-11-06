@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { Instagram, Music, Camera, Linkedin, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const AboutSection = () => {
-  const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -23,11 +23,29 @@ const AboutSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  const skills = [
-    { name: "React & TypeScript", level: 90 },
-    { name: "Node.js & Backend", level: 85 },
-    { name: "UI/UX Design", level: 80 },
-    { name: "Music Production", level: 95 },
+  const focusAreas = [
+    "IT & Web Development (Thomas More Geel)",
+    "DJ & Music Production (Harder Styles as ATLAZ)",
+    "Gaming & Twitch Streaming",
+    "Photography & Visual Creativity",
+    "Scouting Leadership & Teamwork",
+  ];
+
+  const highlights = [
+    { label: "Scouts Leader", detail: "3rd Year" },
+    { label: "Music Producer", detail: "Released tracks as ATLAZ" },
+    { label: "Performer", detail: "DJing Harder Styles events" },
+    { label: "Streamer", detail: "Gaming & Creative Content on Twitch" },
+  ];
+
+  const socialLinks = [
+    { name: "Instagram (Personal)", url: "https://www.instagram.com/finnvangronsveld?igsh=MXAxOTNvNnhjMXRidQ==", icon: Instagram },
+    { name: "Instagram (ATLAZ)", url: "https://www.instagram.com/atlazmusicbe?igsh=emd1OHRhazlpdnVy", icon: Instagram },
+    { name: "Twitch", url: "https://www.twitch.tv/mrfinnertytv", icon: ExternalLink },
+    { name: "LinkedIn", url: "https://www.linkedin.com/in/finnvangronsveld/", icon: Linkedin },
+    { name: "Photography", url: "https://www.pexels.com/@finnvangronsveld/", icon: Camera },
+    { name: "SoundCloud", url: "https://soundcloud.com/atlazmusicbe", icon: Music },
+    { name: "Spotify", url: "https://open.spotify.com/artist/3eXIEA0f6BK8ibuR8m9EkF?si=i2ZMTWo4TDqrr7MgSR9Myg", icon: Music },
   ];
 
   return (
@@ -52,33 +70,36 @@ const AboutSection = () => {
           >
             <div>
               <h2 className="text-5xl md:text-7xl font-anton text-hero-accent mb-4 leading-tight">
-                {t('about.title')}
+                ABOUT ME
               </h2>
               <div className="w-24 h-1 bg-hero-accent mb-8" />
             </div>
 
             <div className="space-y-6 text-foreground/80 text-lg leading-relaxed">
               <p className="animate-fade-in" style={{ animationDelay: "200ms" }}>
-                Hey! I'm Finn Vangronsveld, a passionate IT student who loves creating digital
-                experiences. I blend technical skills with creative vision to build meaningful
-                projects that make an impact.
+                Hey! I'm Finn Vangronsveld, a 19-year-old IT student from Schoonbroek, Retie (Belgium), 
+                currently studying Applied IT at Thomas More Geel.
               </p>
               <p className="animate-fade-in" style={{ animationDelay: "400ms" }}>
-                When I'm not coding, you'll find me behind the decks as a DJ and producer,
-                crafting beats and mixing tracks. Music and tech are my two passions, and I love
-                how they both involve creation, rhythm, and flow.
+                I combine two great passions: technology and music. As ATLAZ, I produce and perform 
+                harder styles—bringing energy and rhythm to my sets and productions.
               </p>
               <p className="animate-fade-in" style={{ animationDelay: "600ms" }}>
-                I also stream on Twitch, sharing my journey and connecting with an amazing
-                community. Whether it's development, music production, or gaming - I'm all about
-                bringing people together through digital experiences.
+                I also stream on Twitch, where I share my gaming sessions, creative experiments, 
+                and connect with a community who enjoys music, tech and fun.
+              </p>
+              <p className="animate-fade-in" style={{ animationDelay: "800ms" }}>
+                Off-screen I'm a scouts leader. Scouting has been part of my life since I was born 
+                (my parents were cooking parents at camps!), I learned to walk at camp, then became 
+                a member, and I'm now in my third year as a leader, mentoring younger scouts through 
+                adventure and teamwork.
               </p>
             </div>
 
             {/* CTA Button */}
-            <div className="pt-4 animate-fade-in" style={{ animationDelay: "800ms" }}>
-              <a
-                href="/portfolio"
+            <div className="pt-4 animate-fade-in" style={{ animationDelay: "1000ms" }}>
+              <Link
+                to="/portfolio"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-hero-accent/10 border-2 border-hero-accent text-hero-accent rounded-full font-medium hover:bg-hero-accent hover:text-background transition-all duration-300 hover:scale-105"
               >
                 View My Work
@@ -97,63 +118,70 @@ const AboutSection = () => {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </a>
+              </Link>
             </div>
           </div>
 
-          {/* Right side - Skills & Stats */}
+          {/* Right side - Focus Areas & Stats */}
           <div
             className={`space-y-8 transition-all duration-1000 delay-300 ${
               isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
             }`}
           >
-            {/* Skills */}
+            {/* Focus Areas */}
             <div className="space-y-6">
-              <h3 className="text-2xl font-anton text-hero-accent mb-6">CORE SKILLS</h3>
-              {skills.map((skill, index) => (
+              <h3 className="text-2xl font-anton text-hero-accent mb-6">FOCUS AREAS</h3>
+              <ul className="space-y-4">
+                {focusAreas.map((area, index) => (
+                  <li
+                    key={index}
+                    className="flex items-start gap-3 text-foreground/70 animate-fade-in"
+                    style={{ animationDelay: `${index * 100 + 400}ms` }}
+                  >
+                    <span className="text-hero-accent mt-1">•</span>
+                    <span>{area}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Highlights Grid */}
+            <div className="grid grid-cols-2 gap-4 pt-8">
+              <h3 className="col-span-2 text-2xl font-anton text-hero-accent mb-2">HIGHLIGHTS</h3>
+              {highlights.map((item, index) => (
                 <div
-                  key={skill.name}
-                  className="space-y-2"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  key={item.label}
+                  className="p-6 bg-hero-accent/5 border border-hero-accent/20 rounded-2xl hover:bg-hero-accent/10 transition-all duration-300 hover:scale-105"
+                  style={{ animationDelay: `${index * 100 + 800}ms` }}
                 >
-                  <div className="flex justify-between items-center">
-                    <span className="text-foreground/70 font-medium">{skill.name}</span>
-                    <span className="text-hero-accent font-bold">{skill.level}%</span>
+                  <div className="text-lg font-anton text-hero-accent mb-2">
+                    {item.label}
                   </div>
-                  <div className="h-2 bg-foreground/5 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-hero-accent/50 to-hero-accent rounded-full transition-all duration-1000 ease-out"
-                      style={{
-                        width: isVisible ? `${skill.level}%` : "0%",
-                        transitionDelay: `${index * 100 + 400}ms`,
-                      }}
-                    />
+                  <div className="text-xs text-foreground/60 leading-relaxed">
+                    {item.detail}
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-4 pt-8">
-              {[
-                { number: "3+", label: "Years Experience" },
-                { number: "50+", label: "Projects Done" },
-                { number: "100+", label: "DJ Sets Played" },
-                { number: "5K+", label: "Stream Viewers" },
-              ].map((stat, index) => (
-                <div
-                  key={stat.label}
-                  className="p-6 bg-hero-accent/5 border border-hero-accent/20 rounded-2xl text-center hover:bg-hero-accent/10 transition-all duration-300 hover:scale-105"
-                  style={{ animationDelay: `${index * 100 + 800}ms` }}
-                >
-                  <div className="text-3xl md:text-4xl font-anton text-hero-accent mb-2">
-                    {stat.number}
-                  </div>
-                  <div className="text-xs text-foreground/60 uppercase tracking-wider">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
+            {/* Social Links */}
+            <div className="pt-8">
+              <h3 className="text-2xl font-anton text-hero-accent mb-6">LINKS</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {socialLinks.map((link, index) => (
+                  <a
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-3 bg-hero-accent/5 border border-hero-accent/20 rounded-lg text-sm text-foreground/70 hover:bg-hero-accent/10 hover:text-hero-accent transition-all duration-300 hover:scale-105"
+                    style={{ animationDelay: `${index * 50 + 1200}ms` }}
+                  >
+                    <link.icon size={16} className="flex-shrink-0" />
+                    <span className="truncate">{link.name}</span>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>

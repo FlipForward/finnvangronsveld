@@ -5,12 +5,15 @@ import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { VolumeSlider } from "./VolumeSlider";
 import { useBackgroundMusic } from "@/hooks/useBackgroundMusic";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showArrow, setShowArrow] = useState(false);
   const { language, setLanguage, t } = useLanguage();
   const { volume, setVolume } = useBackgroundMusic();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +31,23 @@ const Navigation = () => {
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'nl' : 'en');
+  };
+
+  const handleAboutClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      // On homepage, scroll to about section
+      const aboutSection = document.querySelector('#about-section');
+      aboutSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      // Navigate to homepage then scroll
+      navigate('/');
+      setTimeout(() => {
+        const aboutSection = document.querySelector('#about-section');
+        aboutSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -72,13 +92,12 @@ const Navigation = () => {
           >
             {t('nav.home')}
           </NavLink>
-          <NavLink
-            to="/about"
+          <button
+            onClick={handleAboutClick}
             className="px-3 py-1.5 text-sm font-medium text-background/70 hover:text-background transition-colors rounded-full relative"
-            activeClassName="bg-background text-hero-accent"
           >
             {t('nav.about')}
-          </NavLink>
+          </button>
           <NavLink
             to="/portfolio"
             className="px-3 py-1.5 text-sm font-medium text-background/70 hover:text-background transition-colors rounded-full relative"
@@ -128,13 +147,12 @@ const Navigation = () => {
             >
               {t('nav.home')}
             </NavLink>
-            <NavLink
-              to="/about"
-              className="px-4 py-3 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors rounded-lg"
-              onClick={() => setMobileMenuOpen(false)}
+            <button
+              onClick={handleAboutClick}
+              className="px-4 py-3 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors rounded-lg text-left w-full"
             >
               {t('nav.about')}
-            </NavLink>
+            </button>
             <NavLink
               to="/portfolio"
               className="px-4 py-3 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors rounded-lg"
