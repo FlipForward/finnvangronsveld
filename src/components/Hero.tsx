@@ -187,10 +187,13 @@ const Hero = () => {
           setIsHovering(false);
           stopWhamSound();
         }}
-        className={`absolute bottom-12 left-1/2 -translate-x-1/2 hover:scale-110 cursor-pointer z-10 ${
+        className={`absolute hover:scale-110 cursor-pointer z-10 ${
           typingComplete ? 'opacity-100' : 'opacity-0'
         } animate-bounce`}
         style={{
+          bottom: '42px',
+          left: 'calc(50% - 4px)',
+          transform: 'translateX(-50%)',
           animationDuration: '3s',
           animationPlayState: isHovering ? 'paused' : 'running',
         }}
