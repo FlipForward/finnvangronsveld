@@ -89,16 +89,18 @@ const Hero = () => {
 
       {/* Wordmark container */}
       <div className="relative">
-        {/* Construction notice - notification style */}
+        {/* Construction notice - notification style from right */}
         <div 
-          className={`mb-6 transition-all duration-700 delay-300 ${
-            typingComplete ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
+          className={`mb-6 flex justify-end transition-all duration-700 delay-300 ${
+            typingComplete 
+              ? 'opacity-100 translate-x-0' 
+              : 'opacity-0 translate-x-8'
           }`}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-hero-accent/10 border border-hero-accent/30 rounded-lg backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-hero-accent/10 border border-hero-accent/30 rounded-lg backdrop-blur-sm shadow-lg shadow-hero-accent/20 animate-in slide-in-from-right">
             <div className="w-2 h-2 rounded-full bg-hero-accent animate-pulse" />
             <span className="text-xs text-hero-accent/80 uppercase tracking-wider">
-              Site under construction
+              {t('hero.construction')}
             </span>
           </div>
         </div>

@@ -20,6 +20,7 @@ const translations = {
     'hero.label1': 'IT STUDENT',
     'hero.label2': 'DJ + PRODUCER',
     'hero.label3': 'STREAMER',
+    'hero.construction': 'Site under construction',
     
     // About
     'about.title': 'ABOUT ME',
@@ -46,6 +47,7 @@ const translations = {
     'hero.label1': 'IT STUDENT',
     'hero.label2': 'DJ + PRODUCER',
     'hero.label3': 'STREAMER',
+    'hero.construction': 'Site in ontwikkeling',
     
     // About
     'about.title': 'OVER MIJ',
