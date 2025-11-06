@@ -16,36 +16,18 @@ interface Photo {
   id: number;
   src: string;
   alt: string;
-  size: "small" | "medium" | "large" | "wide" | "tall";
 }
 
 const photos: Photo[] = [
-  { id: 1, src: photo1, alt: "Warm evening lights at outdoor event in Belgium", size: "large" },
-  { id: 2, src: photo2, alt: "Outdoor summer snack platter with sparkling wine", size: "wide" },
-  { id: 3, src: photo3, alt: "Refreshing summer cocktails on outdoor table", size: "medium" },
-  { id: 4, src: photo4, alt: "Large outdoor chess set in Retie, Belgium", size: "tall" },
-  { id: 5, src: photo5, alt: "Photography by Finn Vangronsveld", size: "medium" },
-  { id: 6, src: photo6, alt: "Photography by Finn Vangronsveld", size: "large" },
-  { id: 7, src: photo7, alt: "Photography by Finn Vangronsveld", size: "tall" },
-  { id: 8, src: photo8, alt: "Photography by Finn Vangronsveld", size: "wide" },
+  { id: 1, src: photo1, alt: "Warm evening lights at outdoor event in Belgium" },
+  { id: 2, src: photo2, alt: "Outdoor summer snack platter with sparkling wine" },
+  { id: 3, src: photo3, alt: "Refreshing summer cocktails on outdoor table" },
+  { id: 4, src: photo4, alt: "Large outdoor chess set in Retie, Belgium" },
+  { id: 5, src: photo5, alt: "Photography by Finn Vangronsveld" },
+  { id: 6, src: photo6, alt: "Photography by Finn Vangronsveld" },
+  { id: 7, src: photo7, alt: "Photography by Finn Vangronsveld" },
+  { id: 8, src: photo8, alt: "Photography by Finn Vangronsveld" },
 ];
-
-const getSizeClasses = (size: Photo["size"]) => {
-  switch (size) {
-    case "large":
-      return "col-span-2 row-span-2";
-    case "wide":
-      return "col-span-2 row-span-1";
-    case "tall":
-      return "col-span-1 row-span-2";
-    case "medium":
-      return "col-span-1 row-span-1";
-    case "small":
-      return "col-span-1 row-span-1";
-    default:
-      return "col-span-1 row-span-1";
-  }
-};
 
 const PhotoGallery = () => {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
@@ -119,19 +101,19 @@ const PhotoGallery = () => {
           </div>
         </div>
 
-        {/* Masonry grid with varied sizes */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[200px] gap-4">
+        {/* Masonry grid preserving original ratios */}
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
           {photos.map((photo, index) => (
             <div
               key={photo.id}
-              className={`group relative cursor-pointer overflow-hidden rounded-lg bg-hero-accent/5 border border-hero-accent/20 transition-all duration-300 hover:border-hero-accent hover:scale-[1.02] hover:z-10 animate-fade-in ${getSizeClasses(photo.size)}`}
+              className="group relative cursor-pointer overflow-hidden rounded-lg bg-hero-accent/5 border border-hero-accent/20 transition-all duration-300 hover:border-hero-accent hover:scale-[1.02] hover:z-10 animate-fade-in break-inside-avoid mb-4"
               style={{ animationDelay: `${index * 50}ms` }}
               onClick={() => openLightbox(photo)}
             >
               <img
                 src={photo.src}
                 alt={photo.alt}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
