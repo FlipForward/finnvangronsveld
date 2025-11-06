@@ -35,22 +35,24 @@ const Navigation = () => {
       {/* Icon in top center / Arrow when scrolled */}
       <button 
         onClick={scrollToTop}
-        className="absolute left-1/2 -translate-x-1/2 top-0 transition-all duration-300 cursor-pointer hover:scale-110"
+        className="absolute left-1/2 -translate-x-1/2 top-0 cursor-pointer hover:scale-110"
       >
-        {showArrow ? (
-          <ArrowUp 
-            size={40}
-            className="text-hero-accent"
-            strokeWidth={2}
-          />
-        ) : (
-          <img 
-            src="/icon.png" 
-            alt="Icon" 
-            className="w-10 h-10 md:w-12 md:h-12"
-            style={{ filter: 'brightness(0) saturate(100%) invert(85%) sepia(35%) saturate(2719%) hue-rotate(136deg) brightness(94%) contrast(101%)' }} 
-          />
-        )}
+        <div className={`transition-all duration-500 ${showArrow ? 'rotate-180' : 'rotate-0'}`}>
+          {showArrow ? (
+            <ArrowUp 
+              size={40}
+              className="text-hero-accent animate-pulse"
+              strokeWidth={2}
+            />
+          ) : (
+            <img 
+              src="/icon.png" 
+              alt="Icon" 
+              className="w-10 h-10 md:w-12 md:h-12 transition-transform duration-500"
+              style={{ filter: 'brightness(0) saturate(100%) invert(85%) sepia(35%) saturate(2719%) hue-rotate(136deg) brightness(94%) contrast(101%)' }} 
+            />
+          )}
+        </div>
       </button>
 
       <div className="flex items-center justify-between">
