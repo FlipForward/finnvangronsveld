@@ -2,22 +2,15 @@ import { useState } from "react";
 import { X, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
-// Import real Pexels photos
-import photo1 from "@/assets/gallery/pexels-1.jpg";
-import photo2 from "@/assets/gallery/pexels-2.jpg";
-import photo3 from "@/assets/gallery/pexels-3.jpg";
-import photo4 from "@/assets/gallery/pexels-4.jpg";
-import photo5 from "@/assets/gallery/pexels-5.jpg";
-import photo6 from "@/assets/gallery/pexels-6.jpg";
-import photo7 from "@/assets/gallery/pexels-7.jpg";
-import photo8 from "@/assets/gallery/pexels-8.jpg";
-import photo9 from "@/assets/gallery/pexels-9.jpg";
-import photo10 from "@/assets/gallery/pexels-10.jpg";
-import photo11 from "@/assets/gallery/pexels-11.jpg";
-import photo12 from "@/assets/gallery/pexels-12.jpg";
-import photo13 from "@/assets/gallery/pexels-13.jpg";
-import photo14 from "@/assets/gallery/pexels-14.jpg";
-import photo15 from "@/assets/gallery/pexels-15.jpg";
+// Import Finn's real Pexels photos
+import photo1 from "@/assets/gallery/finn-2.jpg";
+import photo2 from "@/assets/gallery/finn-3.jpg";
+import photo3 from "@/assets/gallery/finn-5.jpg";
+import photo4 from "@/assets/gallery/finn-6.jpg";
+import photo5 from "@/assets/gallery/finn-7.jpg";
+import photo6 from "@/assets/gallery/finn-8.jpg";
+import photo7 from "@/assets/gallery/finn-9.jpg";
+import photo8 from "@/assets/gallery/finn-10.jpg";
 
 interface Photo {
   id: number;
@@ -27,21 +20,14 @@ interface Photo {
 }
 
 const photos: Photo[] = [
-  { id: 1, src: photo1, alt: "Photography by Finn Vangronsveld", size: "large" },
-  { id: 2, src: photo2, alt: "Photography by Finn Vangronsveld", size: "medium" },
-  { id: 3, src: photo3, alt: "Photography by Finn Vangronsveld", size: "tall" },
-  { id: 4, src: photo4, alt: "Photography by Finn Vangronsveld", size: "wide" },
+  { id: 1, src: photo1, alt: "Warm evening lights at outdoor event in Belgium", size: "large" },
+  { id: 2, src: photo2, alt: "Outdoor summer snack platter with sparkling wine", size: "wide" },
+  { id: 3, src: photo3, alt: "Refreshing summer cocktails on outdoor table", size: "medium" },
+  { id: 4, src: photo4, alt: "Large outdoor chess set in Retie, Belgium", size: "tall" },
   { id: 5, src: photo5, alt: "Photography by Finn Vangronsveld", size: "medium" },
-  { id: 6, src: photo6, alt: "Photography by Finn Vangronsveld", size: "small" },
+  { id: 6, src: photo6, alt: "Photography by Finn Vangronsveld", size: "large" },
   { id: 7, src: photo7, alt: "Photography by Finn Vangronsveld", size: "tall" },
-  { id: 8, src: photo8, alt: "Photography by Finn Vangronsveld", size: "medium" },
-  { id: 9, src: photo9, alt: "Photography by Finn Vangronsveld", size: "wide" },
-  { id: 10, src: photo10, alt: "Photography by Finn Vangronsveld", size: "small" },
-  { id: 11, src: photo11, alt: "Photography by Finn Vangronsveld", size: "medium" },
-  { id: 12, src: photo12, alt: "Photography by Finn Vangronsveld", size: "large" },
-  { id: 13, src: photo13, alt: "Photography by Finn Vangronsveld", size: "tall" },
-  { id: 14, src: photo14, alt: "Photography by Finn Vangronsveld", size: "wide" },
-  { id: 15, src: photo15, alt: "Photography by Finn Vangronsveld", size: "medium" },
+  { id: 8, src: photo8, alt: "Photography by Finn Vangronsveld", size: "wide" },
 ];
 
 const getSizeClasses = (size: Photo["size"]) => {
