@@ -16,5 +16,12 @@ export const useWhamSound = () => {
     }
   };
 
-  return { playWhamSound };
+  const stopWhamSound = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+  };
+
+  return { playWhamSound, stopWhamSound };
 };

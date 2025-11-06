@@ -8,9 +8,10 @@ const Hero = () => {
   const [displayedFinn, setDisplayedFinn] = useState("");
   const [displayedVangronsveld, setDisplayedVangronsveld] = useState("");
   const [typingComplete, setTypingComplete] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
   const { playTypingSound } = useTypingSound();
   const { t } = useLanguage();
-  const { playWhamSound } = useWhamSound();
+  const { playWhamSound, stopWhamSound } = useWhamSound();
 
   const finn = "FINN";
   const vangronsveld = "VANGRONSVELD";
@@ -56,15 +57,30 @@ const Hero = () => {
 
   return (
     <section 
-      className={`group relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-32 md:pt-40 transition-opacity duration-500 ${
+      className={`relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-32 md:pt-40 transition-opacity duration-500 ${
         isLoaded ? 'opacity-100' : 'opacity-0'
       }`}
     >
-      {/* Cyan glow overlay */}
-      <div className="pointer-events-none fixed inset-0 bg-hero-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-out" style={{ backdropFilter: 'blur(100px)' }} />
+      {/* Expanding cyan glow from arrow */}
+      <div 
+        className="pointer-events-none fixed inset-0 transition-opacity"
+        style={{
+          opacity: isHovering ? 1 : 0,
+          transitionDuration: isHovering ? '5000ms' : '300ms',
+          background: isHovering 
+            ? 'radial-gradient(circle at 50% 85vh, rgba(0, 255, 255, 0.6) 0%, rgba(0, 255, 255, 0.4) 20%, rgba(0, 255, 255, 0.2) 40%, rgba(0, 255, 255, 0) 70%)'
+            : 'radial-gradient(circle at 50% 85vh, rgba(0, 255, 255, 0) 0%, rgba(0, 255, 255, 0) 100%)',
+          backgroundSize: isHovering ? '400vmax 400vmax' : '0 0',
+          backgroundPosition: 'center 85vh',
+          transitionProperty: 'opacity, background-size',
+        }}
+      />
 
       {/* Wordmark container */}
-      <div className="relative">
+      <div className="relative" style={{
+        transition: 'color 5000ms ease-out',
+        color: isHovering ? '#000000' : undefined,
+      }}>
         {/* Top rule */}
         <div 
           className={`w-full h-[2px] bg-hero-accent mb-6 md:mb-8 origin-center transition-transform duration-500 ${
@@ -76,9 +92,10 @@ const Hero = () => {
         <div>
           {/* FINN - smaller line */}
           <h1 
-            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em] mb-6 md:mb-8"
+            className="font-anton uppercase leading-[0.85] tracking-[-0.03em] mb-6 md:mb-8 transition-colors duration-[5000ms] ease-out"
             style={{
               fontSize: 'clamp(3.5rem, 12vw, 10rem)',
+              color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
             }}
           >
             {displayedFinn}
@@ -89,9 +106,10 @@ const Hero = () => {
 
           {/* VANGRONSVELD - dominant line */}
           <h1 
-            className="font-anton text-hero-accent uppercase leading-[0.85] tracking-[-0.03em]"
+            className="font-anton uppercase leading-[0.85] tracking-[-0.03em] transition-colors duration-[5000ms] ease-out"
             style={{
               fontSize: 'clamp(3rem, 16vw, 16rem)',
+              color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
             }}
           >
             {displayedVangronsveld}
@@ -132,15 +150,27 @@ const Hero = () => {
           const aboutSection = document.querySelector('#about-section');
           aboutSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }}
-        onMouseEnter={playWhamSound}
-        className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-300 hover:scale-110 cursor-pointer ${
+        onMouseEnter={() => {
+          setIsHovering(true);
+          playWhamSound();
+        }}
+        onMouseLeave={() => {
+          setIsHovering(false);
+          stopWhamSound();
+        }}
+        className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-300 hover:scale-110 cursor-pointer z-10 ${
           typingComplete ? 'opacity-100' : 'opacity-0'
         }`}
         aria-label="Scroll to about section"
       >
         <div className="relative flex flex-col items-center gap-2">
           {/* Background circle that appears on hover */}
-          <div className="absolute inset-0 -m-8 bg-hero-accent rounded-full scale-0 hover:scale-100 transition-transform duration-300" />
+          <div 
+            className="absolute inset-0 -m-8 bg-hero-accent rounded-full transition-transform duration-300"
+            style={{
+              transform: isHovering ? 'scale(1)' : 'scale(0)',
+            }}
+          />
           
           <svg
             width="24"
@@ -151,7 +181,11 @@ const Hero = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="relative z-10 text-hero-accent hover:text-background transition-colors duration-300 animate-bounce hover:animate-none"
+            className="relative z-10 transition-colors duration-300 animate-bounce"
+            style={{
+              color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
+              animation: isHovering ? 'none' : undefined,
+            }}
           >
             <polyline points="6 9 12 15 18 9" />
           </svg>
