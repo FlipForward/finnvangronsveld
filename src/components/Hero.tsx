@@ -66,12 +66,12 @@ const Hero = () => {
         className="pointer-events-none fixed inset-0"
         style={{
           opacity: isHovering ? 1 : 0,
-          transition: isHovering ? 'opacity 5000ms ease-out, background-size 5000ms ease-out' : 'opacity 300ms ease-out',
-          background: isHovering 
-            ? 'radial-gradient(circle at 50% 85vh, rgba(0, 255, 255, 0.9) 0%, rgba(0, 255, 255, 0.7) 20%, rgba(0, 255, 255, 0.5) 40%, rgba(0, 255, 255, 0) 70%)'
-            : 'radial-gradient(circle at 50% 85vh, rgba(0, 255, 255, 0) 0%, rgba(0, 255, 255, 0) 100%)',
-          backgroundSize: isHovering ? '400vmax 400vmax' : '0 0',
+          transition: isHovering ? 'opacity 5000ms ease-out' : 'opacity 300ms ease-out',
+          background: 'radial-gradient(circle at 50% 85vh, rgba(0, 255, 255, 0.9) 0%, rgba(0, 255, 255, 0.7) 15%, rgba(0, 255, 255, 0.5) 30%, rgba(0, 255, 255, 0.3) 45%, rgba(0, 255, 255, 0) 60%)',
+          backgroundSize: '300vmax 300vmax',
           backgroundPosition: 'center 85vh',
+          transform: isHovering ? 'scale(2)' : 'scale(0.1)',
+          transitionProperty: 'opacity, transform',
         }}
       />
 
@@ -84,7 +84,7 @@ const Hero = () => {
           }`}
           style={{
             backgroundColor: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
-            transition: 'transform 500ms ease-out, background-color 15000ms linear',
+            transition: 'transform 500ms ease-out, background-color 5000ms linear',
           }}
         />
 
@@ -96,7 +96,7 @@ const Hero = () => {
             style={{
               fontSize: 'clamp(3.5rem, 12vw, 10rem)',
               color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
-              transition: 'color 15000ms linear',
+              transition: 'color 5000ms linear',
             }}
           >
             {displayedFinn}
@@ -111,7 +111,7 @@ const Hero = () => {
             style={{
               fontSize: 'clamp(3rem, 16vw, 16rem)',
               color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
-              transition: 'color 15000ms linear',
+              transition: 'color 5000ms linear',
             }}
           >
             {displayedVangronsveld}
@@ -128,7 +128,7 @@ const Hero = () => {
           }`}
           style={{
             backgroundColor: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
-            transition: 'transform 500ms ease-out, background-color 15000ms linear',
+            transition: 'transform 500ms ease-out, background-color 5000ms linear',
           }}
         />
 
@@ -167,6 +167,9 @@ const Hero = () => {
         className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-300 hover:scale-110 cursor-pointer z-10 ${
           typingComplete ? 'opacity-100' : 'opacity-0'
         }`}
+        style={{
+          animation: isHovering ? 'none' : 'bounce 3s ease-in-out infinite',
+        }}
         aria-label="Scroll to about section"
       >
         <div className="relative flex flex-col items-center gap-2">
@@ -179,10 +182,9 @@ const Hero = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="relative z-10 transition-colors duration-300 animate-bounce"
+            className="relative z-10 transition-colors duration-300"
             style={{
               color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
-              animation: isHovering ? 'none' : undefined,
             }}
           >
             <polyline points="6 9 12 15 18 9" />
