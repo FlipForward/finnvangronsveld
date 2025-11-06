@@ -63,31 +63,28 @@ const Hero = () => {
     >
       {/* Expanding cyan glow from arrow */}
       <div 
-        className="pointer-events-none fixed inset-0 transition-opacity"
+        className="pointer-events-none fixed inset-0"
         style={{
           opacity: isHovering ? 1 : 0,
-          transitionDuration: isHovering ? '8000ms' : '300ms',
+          transition: isHovering ? 'opacity 5000ms ease-out, background-size 5000ms ease-out' : 'opacity 300ms ease-out',
           background: isHovering 
             ? 'radial-gradient(circle at 50% 85vh, rgba(0, 255, 255, 0.9) 0%, rgba(0, 255, 255, 0.7) 20%, rgba(0, 255, 255, 0.5) 40%, rgba(0, 255, 255, 0) 70%)'
             : 'radial-gradient(circle at 50% 85vh, rgba(0, 255, 255, 0) 0%, rgba(0, 255, 255, 0) 100%)',
           backgroundSize: isHovering ? '400vmax 400vmax' : '0 0',
           backgroundPosition: 'center 85vh',
-          transitionProperty: 'opacity, background-size',
         }}
       />
 
       {/* Wordmark container */}
-      <div className="relative" style={{
-        transition: 'color 5000ms ease-out',
-        color: isHovering ? '#000000' : undefined,
-      }}>
+      <div className="relative">
         {/* Top rule */}
         <div 
-          className={`w-full h-[2px] mb-6 md:mb-8 origin-center transition-transform duration-500 transition-colors duration-[15000ms] ease-out ${
+          className={`w-full h-[2px] mb-6 md:mb-8 origin-center ${
             typingComplete ? 'scale-x-100' : 'scale-x-0'
           }`}
           style={{
             backgroundColor: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
+            transition: 'transform 500ms ease-out, background-color 15000ms linear',
           }}
         />
 
@@ -95,10 +92,11 @@ const Hero = () => {
         <div>
           {/* FINN - smaller line */}
           <h1 
-            className="font-anton uppercase leading-[0.85] tracking-[-0.03em] mb-6 md:mb-8 transition-colors duration-[15000ms] ease-out"
+            className="font-anton uppercase leading-[0.85] tracking-[-0.03em] mb-6 md:mb-8"
             style={{
               fontSize: 'clamp(3.5rem, 12vw, 10rem)',
               color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
+              transition: 'color 15000ms linear',
             }}
           >
             {displayedFinn}
@@ -109,10 +107,11 @@ const Hero = () => {
 
           {/* VANGRONSVELD - dominant line */}
           <h1 
-            className="font-anton uppercase leading-[0.85] tracking-[-0.03em] transition-colors duration-[15000ms] ease-out"
+            className="font-anton uppercase leading-[0.85] tracking-[-0.03em]"
             style={{
               fontSize: 'clamp(3rem, 16vw, 16rem)',
               color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
+              transition: 'color 15000ms linear',
             }}
           >
             {displayedVangronsveld}
@@ -124,11 +123,12 @@ const Hero = () => {
 
         {/* Bottom rule */}
         <div 
-          className={`w-full h-[2px] mt-6 md:mt-8 origin-center transition-transform duration-500 transition-colors duration-[15000ms] ease-out ${
+          className={`w-full h-[2px] mt-6 md:mt-8 origin-center ${
             typingComplete ? 'scale-x-100' : 'scale-x-0'
           }`}
           style={{
             backgroundColor: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
+            transition: 'transform 500ms ease-out, background-color 15000ms linear',
           }}
         />
 
