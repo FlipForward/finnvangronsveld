@@ -4,6 +4,7 @@ import { useParallax } from "@/hooks/useParallax";
 
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const parallaxOffset = useParallax(0.2);
 
@@ -22,6 +23,21 @@ const AboutSection = () => {
     }
 
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = sectionRef.current;
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        // Exit when scrolled past
+        setIsExiting(rect.bottom < window.innerHeight * 0.3);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const focusAreas = [
@@ -69,7 +85,7 @@ const AboutSection = () => {
           {/* Left side - Text content */}
           <div
             className={`space-y-8 transition-all duration-1000 ${
-              isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
+              isExiting ? "opacity-0 -translate-x-12" : isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
             }`}
           >
             <div>
@@ -132,7 +148,7 @@ const AboutSection = () => {
           {/* Right side - Focus Areas & Stats */}
           <div
             className={`space-y-8 transition-all duration-1000 delay-300 ${
-              isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
+              isExiting ? "opacity-0 translate-x-12" : isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
             }`}
           >
             {/* Focus Areas */}

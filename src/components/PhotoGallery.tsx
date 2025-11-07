@@ -38,6 +38,7 @@ const PhotoGallery = () => {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const parallaxOffset = useParallax(0.15);
 
@@ -56,6 +57,20 @@ const PhotoGallery = () => {
     }
 
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = sectionRef.current;
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        setIsExiting(rect.bottom < window.innerHeight * 0.3);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const openLightbox = (photo: Photo) => {
@@ -110,7 +125,7 @@ const PhotoGallery = () => {
         {/* Header */}
         <div
           className={`mb-12 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+            isExiting ? "opacity-0 -translate-y-12" : isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
         >
           <h2 className="text-4xl md:text-6xl font-anton text-hero-accent mb-4">PORTFOLIO</h2>
@@ -132,7 +147,9 @@ const PhotoGallery = () => {
         </div>
 
         {/* Masonry grid preserving original ratios */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+        <div className={`columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4 transition-all duration-1000 ${
+          isExiting ? "opacity-0 scale-95" : "opacity-100 scale-100"
+        }`}>
           {photos.map((photo, index) => (
             <div
               key={photo.id}

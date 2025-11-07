@@ -11,6 +11,7 @@ const Hero = () => {
   const [displayedVangronsveld, setDisplayedVangronsveld] = useState("");
   const [typingComplete, setTypingComplete] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
   const { playTypingSound } = useTypingSound();
   const { t } = useLanguage();
   const { playWhamSound, stopWhamSound } = useWhamSound();
@@ -24,6 +25,21 @@ const Hero = () => {
     // Start animation immediately when Hero mounts (it only mounts after EnterScreen is gone)
     const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroSection = document.getElementById('hero');
+      if (heroSection) {
+        const rect = heroSection.getBoundingClientRect();
+        // Start exit animation when section is 30% scrolled past
+        setIsExiting(rect.bottom < window.innerHeight * 0.7);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
@@ -62,8 +78,8 @@ const Hero = () => {
 
   return (
     <section 
-      className={`relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-32 md:pt-40 transition-opacity duration-500 ${
-        isLoaded ? 'opacity-100' : 'opacity-0'
+      className={`relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-32 md:pt-40 transition-all duration-700 ${
+        isExiting ? 'opacity-0 -translate-y-12' : isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
       }`}
       style={{ transform: `translateY(${parallaxOffset}px)` }}
     >

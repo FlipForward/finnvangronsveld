@@ -8,6 +8,7 @@ import { useParallax } from "@/hooks/useParallax";
 
 const ContactSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const { toast } = useToast();
@@ -28,6 +29,20 @@ const ContactSection = () => {
     }
 
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = sectionRef.current;
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        setIsExiting(rect.bottom < window.innerHeight * 0.3);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -57,7 +72,7 @@ const ContactSection = () => {
       <div className="relative w-full max-w-4xl mx-auto">
         <div
           className={`transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+            isExiting ? "opacity-0 -translate-y-12 scale-95" : isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-12 scale-95"
           }`}
         >
           {/* Header */}
