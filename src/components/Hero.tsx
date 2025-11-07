@@ -3,6 +3,7 @@ import { useTypingSound } from "@/hooks/useTypingSound";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useWhamSound } from "@/hooks/useWhamSound";
 import { useBackgroundMusic } from "@/hooks/useBackgroundMusic";
+import { useParallax } from "@/hooks/useParallax";
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -14,6 +15,7 @@ const Hero = () => {
   const { t } = useLanguage();
   const { playWhamSound, stopWhamSound } = useWhamSound();
   const { startMusic } = useBackgroundMusic();
+  const parallaxOffset = useParallax(0.3);
 
   const finn = "FINN";
   const vangronsveld = "VANGRONSVELD";
@@ -63,6 +65,7 @@ const Hero = () => {
       className={`relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-32 md:pt-40 transition-opacity duration-500 ${
         isLoaded ? 'opacity-100' : 'opacity-0'
       }`}
+      style={{ transform: `translateY(${parallaxOffset}px)` }}
     >
       {/* Expanding cyan glow from arrow - wrapper stays fixed, inner div grows */}
       <div 

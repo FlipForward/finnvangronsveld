@@ -4,12 +4,14 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { useParallax } from "@/hooks/useParallax";
 
 const ContactSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const { toast } = useToast();
+  const parallaxOffset = useParallax(0.1);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -44,7 +46,10 @@ const ContactSection = () => {
       className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-16 py-20"
     >
       {/* Background decorations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div 
+        className="absolute inset-0 overflow-hidden pointer-events-none"
+        style={{ transform: `translateY(${parallaxOffset * 0.6}px)` }}
+      >
         <div className="absolute top-1/3 -left-32 w-96 h-96 bg-hero-accent/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }} />
         <div className="absolute bottom-1/3 -right-32 w-96 h-96 bg-hero-accent/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s' }} />
       </div>

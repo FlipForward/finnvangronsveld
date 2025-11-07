@@ -95,30 +95,30 @@ const Navigation = () => {
         <div className="hidden md:flex items-center gap-1 rounded-full bg-hero-accent px-2 py-1.5">
           <button
             onClick={() => scrollToSection('hero')}
-            className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-full ${
+            className={`px-3 py-1.5 text-sm font-medium transition-all duration-300 rounded-full ${
               activeSection === 'hero' 
-                ? 'bg-background text-hero-accent' 
-                : 'text-background/70 hover:text-background'
+                ? 'bg-background text-hero-accent scale-105' 
+                : 'text-background/70 hover:text-background hover:scale-105'
             }`}
           >
             {t('nav.home')}
           </button>
           <button
             onClick={() => scrollToSection('about-section')}
-            className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-full ${
+            className={`px-3 py-1.5 text-sm font-medium transition-all duration-300 rounded-full ${
               activeSection === 'about-section' 
-                ? 'bg-background text-hero-accent' 
-                : 'text-background/70 hover:text-background'
+                ? 'bg-background text-hero-accent scale-105' 
+                : 'text-background/70 hover:text-background hover:scale-105'
             }`}
           >
             {t('nav.about')}
           </button>
           <button
             onClick={() => scrollToSection('portfolio-section')}
-            className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-full ${
+            className={`px-3 py-1.5 text-sm font-medium transition-all duration-300 rounded-full ${
               activeSection === 'portfolio-section' 
-                ? 'bg-background text-hero-accent' 
-                : 'text-background/70 hover:text-background'
+                ? 'bg-background text-hero-accent scale-105' 
+                : 'text-background/70 hover:text-background hover:scale-105'
             }`}
           >
             {t('nav.portfolio')}
@@ -147,7 +147,11 @@ const Navigation = () => {
           <Button
             size="sm"
             onClick={() => scrollToSection('contact-section')}
-            className="rounded-full bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20 h-8 px-3 py-1"
+            className={`rounded-full border h-8 px-3 py-1 transition-all duration-300 hover:scale-105 ${
+              activeSection === 'contact-section'
+                ? 'bg-hero-accent border-hero-accent text-background'
+                : 'bg-hero-accent/10 border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20'
+            }`}
           >
             {t('nav.contact')}
           </Button>
@@ -196,7 +200,11 @@ const Navigation = () => {
             <Button
               size="sm"
               onClick={() => scrollToSection('contact-section')}
-              className="rounded-lg bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20"
+              className={`rounded-lg border transition-all duration-300 ${
+                activeSection === 'contact-section'
+                  ? 'bg-hero-accent border-hero-accent text-background'
+                  : 'bg-hero-accent/10 border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20'
+              }`}
             >
               {t('nav.contact')}
             </Button>

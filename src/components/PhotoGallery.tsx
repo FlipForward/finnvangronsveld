@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { X, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { useParallax } from "@/hooks/useParallax";
 
 // Import Finn's real Pexels photos
 import photo1 from "@/assets/gallery/finn-2.jpg";
@@ -38,6 +39,7 @@ const PhotoGallery = () => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const parallaxOffset = useParallax(0.15);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -83,7 +85,10 @@ const PhotoGallery = () => {
   return (
     <section ref={sectionRef} className="relative min-h-screen py-20 px-6 md:px-12 lg:px-16">
       {/* Abstract minimalistic grid background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div 
+        className="absolute inset-0 overflow-hidden pointer-events-none"
+        style={{ transform: `translateY(${parallaxOffset * 0.8}px)` }}
+      >
         {/* Vertical lines */}
         <div className="absolute left-[15%] top-0 bottom-0 w-px bg-hero-accent/10" />
         <div className="absolute left-[35%] top-0 bottom-0 w-px bg-hero-accent/5" />

@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Instagram, Music, Camera, Linkedin, ExternalLink } from "lucide-react";
+import { useParallax } from "@/hooks/useParallax";
 
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const parallaxOffset = useParallax(0.2);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -54,7 +56,10 @@ const AboutSection = () => {
       className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-16 py-20 overflow-hidden"
     >
       {/* Decorative background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div 
+        className="absolute inset-0 overflow-hidden pointer-events-none"
+        style={{ transform: `translateY(${parallaxOffset * 0.5}px)` }}
+      >
         <div className="absolute top-1/4 -left-20 w-96 h-96 bg-hero-accent/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-hero-accent/5 rounded-full blur-3xl" />
       </div>
