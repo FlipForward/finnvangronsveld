@@ -20,16 +20,17 @@ interface Photo {
 }
 
 const photos: Photo[] = [
-  { id: 1, src: photo1, alt: "Warm evening lights at outdoor event in Belgium" },
+  { id: 1, src: photo1, alt: "Photography by Finn Vangronsveld" },
   { id: 2, src: photo7, alt: "Photography by Finn Vangronsveld" },
-  { id: 3, src: photo4, alt: "Large outdoor chess set in Retie, Belgium" },
+  { id: 3, src: photo4, alt: "Photography by Finn Vangronsveld" },
 
   { id: 4, src: photo6, alt: "Photography by Finn Vangronsveld" },
   { id: 5, src: photo5, alt: "Photography by Finn Vangronsveld" },
-  { id: 6, src: photo2, alt: "Outdoor summer snack platter with sparkling wine" },
+  { id: 6, src: photo2, alt: "Photography by Finn Vangronsveld" },
 
-  { id: 7, src: photo3, alt: "Refreshing summer cocktails on outdoor table" },
+  { id: 7, src: photo3, alt: "Photography by Finn Vangronsveld" },
   { id: 8, src: photo8, alt: "Photography by Finn Vangronsveld" },
+  { id: 9, src: photo9, alt: "Photography by Finn Vangronsveld" },
 ];
 
 const PhotoGallery = () => {
