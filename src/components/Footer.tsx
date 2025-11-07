@@ -1,4 +1,4 @@
-import { Instagram, Music, Camera, Linkedin, ExternalLink, Heart } from "lucide-react";
+import { Instagram, Music, Camera, Linkedin, ExternalLink } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -17,24 +17,10 @@ const Footer = () => {
       <div className="px-6 md:px-12 lg:px-16 py-12">
         <div className="max-w-7xl mx-auto">
           {/* Top section */}
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
             {/* Brand */}
             <div className="space-y-4">
               <h3 className="text-2xl font-anton text-hero-accent">FINN VANGRONSVELD</h3>
-              <p className="text-foreground/60 text-sm leading-relaxed">
-                IT Student, DJ/Producer, Photographer & Streamer from Belgium.
-              </p>
-            </div>
-
-            {/* Quick Links */}
-            <div className="space-y-4">
-              <h4 className="text-sm font-medium text-hero-accent uppercase tracking-wider">Quick Links</h4>
-              <div className="flex flex-col gap-2">
-                <a href="#hero" className="text-foreground/60 hover:text-hero-accent transition-colors text-sm">Home</a>
-                <a href="#about-section" className="text-foreground/60 hover:text-hero-accent transition-colors text-sm">About</a>
-                <a href="#portfolio-section" className="text-foreground/60 hover:text-hero-accent transition-colors text-sm">Portfolio</a>
-                <a href="#contact-section" className="text-foreground/60 hover:text-hero-accent transition-colors text-sm">Contact</a>
-              </div>
             </div>
 
             {/* Social */}
@@ -59,12 +45,9 @@ const Footer = () => {
 
           {/* Bottom section */}
           <div className="pt-8 border-t border-hero-accent/10">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center justify-center">
               <p className="text-foreground/50 text-sm">
                 © {currentYear} Finn Vangronsveld. All rights reserved.
-              </p>
-              <p className="text-foreground/50 text-sm flex items-center gap-1">
-                Built with <Heart size={14} className="text-hero-accent fill-hero-accent" /> using React & TypeScript
               </p>
             </div>
           </div>
