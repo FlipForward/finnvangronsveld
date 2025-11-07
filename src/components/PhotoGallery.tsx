@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { X, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
@@ -32,6 +32,25 @@ const photos: Photo[] = [
 const PhotoGallery = () => {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const openLightbox = (photo: Photo) => {
     setSelectedPhoto(photo);
@@ -58,7 +77,7 @@ const PhotoGallery = () => {
   };
 
   return (
-    <section className="relative min-h-screen py-20 px-6 md:px-12 lg:px-16">
+    <section ref={sectionRef} className="relative min-h-screen py-20 px-6 md:px-12 lg:px-16">
       {/* Abstract minimalistic grid background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Vertical lines */}
@@ -80,7 +99,9 @@ const PhotoGallery = () => {
 
       <div className="relative max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-12">
+        <div className={`mb-12 transition-all duration-1000 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+        }`}>
           <h2 className="text-4xl md:text-6xl font-anton text-hero-accent mb-4">
             PORTFOLIO
           </h2>

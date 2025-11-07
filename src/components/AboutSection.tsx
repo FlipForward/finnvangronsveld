@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Instagram, Music, Camera, Linkedin, ExternalLink } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -98,8 +97,11 @@ const AboutSection = () => {
 
             {/* CTA Button */}
             <div className="pt-4 animate-fade-in" style={{ animationDelay: "1000ms" }}>
-              <Link
-                to="/portfolio"
+              <button
+                onClick={() => {
+                  const portfolioSection = document.querySelector('#portfolio-section');
+                  portfolioSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-hero-accent/10 border-2 border-hero-accent text-hero-accent rounded-full font-medium hover:bg-hero-accent hover:text-background transition-all duration-300 hover:scale-105"
               >
                 View My Work
@@ -118,7 +120,7 @@ const AboutSection = () => {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </Link>
+              </button>
             </div>
           </div>
 

@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showArrow, setShowArrow] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const { language, setLanguage, t } = useLanguage();
   const { volume, setVolume } = useBackgroundMusic();
   const location = useLocation();
@@ -19,9 +20,27 @@ const Navigation = () => {
     const handleScroll = () => {
       // Show arrow when scrolled past 80% of viewport height
       setShowArrow(window.scrollY > window.innerHeight * 0.8);
+
+      // Detect active section
+      const sections = ['hero', 'about-section', 'portfolio-section', 'contact-section'];
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+      for (const sectionId of sections) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          const sectionTop = section.offsetTop;
+          const sectionBottom = sectionTop + section.offsetHeight;
+          
+          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial position
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -33,20 +52,9 @@ const Navigation = () => {
     setLanguage(language === 'en' ? 'nl' : 'en');
   };
 
-  const handleAboutClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (location.pathname === '/') {
-      // On homepage, scroll to about section
-      const aboutSection = document.querySelector('#about-section');
-      aboutSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      // Navigate to homepage then scroll
-      navigate('/');
-      setTimeout(() => {
-        const aboutSection = document.querySelector('#about-section');
-        aboutSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    }
+  const scrollToSection = (sectionId: string) => {
+    const section = document.querySelector(`#${sectionId}`);
+    section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     setMobileMenuOpen(false);
   };
 
@@ -85,26 +93,36 @@ const Navigation = () => {
       <div className="flex items-center justify-between">
         {/* Desktop nav pills */}
         <div className="hidden md:flex items-center gap-1 rounded-full bg-hero-accent px-2 py-1.5">
-          <NavLink
-            to="/"
-            className="px-3 py-1.5 text-sm font-medium transition-colors rounded-full text-background/70 hover:text-background relative"
-            activeClassName="bg-background text-hero-accent"
+          <button
+            onClick={() => scrollToSection('hero')}
+            className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-full ${
+              activeSection === 'hero' 
+                ? 'bg-background text-hero-accent' 
+                : 'text-background/70 hover:text-background'
+            }`}
           >
             {t('nav.home')}
-          </NavLink>
+          </button>
           <button
-            onClick={handleAboutClick}
-            className="px-3 py-1.5 text-sm font-medium text-background/70 hover:text-background transition-colors rounded-full relative"
+            onClick={() => scrollToSection('about-section')}
+            className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-full ${
+              activeSection === 'about-section' 
+                ? 'bg-background text-hero-accent' 
+                : 'text-background/70 hover:text-background'
+            }`}
           >
             {t('nav.about')}
           </button>
-          <NavLink
-            to="/portfolio"
-            className="px-3 py-1.5 text-sm font-medium text-background/70 hover:text-background transition-colors rounded-full relative"
-            activeClassName="bg-background text-hero-accent"
+          <button
+            onClick={() => scrollToSection('portfolio-section')}
+            className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-full ${
+              activeSection === 'portfolio-section' 
+                ? 'bg-background text-hero-accent' 
+                : 'text-background/70 hover:text-background'
+            }`}
           >
             {t('nav.portfolio')}
-          </NavLink>
+          </button>
         </div>
 
         {/* Mobile burger button */}
@@ -128,6 +146,7 @@ const Navigation = () => {
           </Button>
           <Button
             size="sm"
+            onClick={() => scrollToSection('contact-section')}
             className="rounded-full bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20 h-8 px-3 py-1"
           >
             {t('nav.contact')}
@@ -139,28 +158,34 @@ const Navigation = () => {
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-16 left-6 right-6 bg-black/95 backdrop-blur-sm border border-hero-accent/30 rounded-2xl p-4 z-50">
           <div className="flex flex-col gap-2">
-            <NavLink
-              to="/"
-              className="px-4 py-3 text-sm font-medium transition-colors rounded-lg"
-              activeClassName="bg-hero-accent/10 text-hero-accent"
-              onClick={() => setMobileMenuOpen(false)}
+            <button
+              onClick={() => scrollToSection('hero')}
+              className={`px-4 py-3 text-sm font-medium transition-colors rounded-lg text-left ${
+                activeSection === 'hero' ? 'bg-hero-accent/10 text-hero-accent' : 'text-foreground/70 hover:text-foreground'
+              }`}
             >
               {t('nav.home')}
-            </NavLink>
+            </button>
             <button
-              onClick={handleAboutClick}
-              className="px-4 py-3 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors rounded-lg text-left w-full"
+              onClick={() => scrollToSection('about-section')}
+              className={`px-4 py-3 text-sm font-medium transition-colors rounded-lg text-left ${
+                activeSection === 'about-section' ? 'bg-hero-accent/10 text-hero-accent' : 'text-foreground/70 hover:text-foreground'
+              }`}
             >
               {t('nav.about')}
             </button>
-            <NavLink
-              to="/portfolio"
-              className="px-4 py-3 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors rounded-lg"
-              onClick={() => setMobileMenuOpen(false)}
+            <button
+              onClick={() => scrollToSection('portfolio-section')}
+              className={`px-4 py-3 text-sm font-medium transition-colors rounded-lg text-left ${
+                activeSection === 'portfolio-section' ? 'bg-hero-accent/10 text-hero-accent' : 'text-foreground/70 hover:text-foreground'
+              }`}
             >
               {t('nav.portfolio')}
-            </NavLink>
+            </button>
             <div className="h-px bg-hero-accent/20 my-2" />
+            <div className="px-4 py-2">
+              <VolumeSlider volume={volume} onVolumeChange={setVolume} />
+            </div>
             <Button
               size="sm"
               onClick={toggleLanguage}
@@ -170,6 +195,7 @@ const Navigation = () => {
             </Button>
             <Button
               size="sm"
+              onClick={() => scrollToSection('contact-section')}
               className="rounded-lg bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20"
             >
               {t('nav.contact')}

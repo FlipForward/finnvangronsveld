@@ -25,11 +25,11 @@ export const useWhamSound = () => {
 
   const stopWhamSound = () => {
     if (audioRef.current && fadeIntervalRef.current === null) {
-      // Fade out over 300ms
+      // Faster fade out over 200ms
       let currentVolume = audioRef.current.volume;
       fadeIntervalRef.current = setInterval(() => {
         if (audioRef.current && currentVolume > 0) {
-          currentVolume = Math.max(currentVolume - 0.02, 0);
+          currentVolume = Math.max(currentVolume - 0.03, 0);
           audioRef.current.volume = currentVolume;
         } else {
           if (fadeIntervalRef.current) {
@@ -42,7 +42,7 @@ export const useWhamSound = () => {
             audioRef.current.volume = 0.15; // Reset for next play
           }
         }
-      }, 15);
+      }, 10);
     }
   };
 

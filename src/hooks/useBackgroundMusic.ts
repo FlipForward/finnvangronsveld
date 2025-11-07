@@ -26,24 +26,42 @@ export const useBackgroundMusic = () => {
     if (isStarted && audioRef.current) {
       audioRef.current.play().catch(err => console.log('Background music autoplay failed:', err));
       
-      // Fade in over 3 seconds
+      // Fade in over 5 seconds for smoother entrance
       let currentVolume = 0;
       fadeIntervalRef.current = setInterval(() => {
         if (audioRef.current && currentVolume < volume) {
-          currentVolume = Math.min(currentVolume + 0.005, volume);
+          currentVolume = Math.min(currentVolume + 0.003, volume);
           audioRef.current.volume = currentVolume;
         } else if (fadeIntervalRef.current) {
           clearInterval(fadeIntervalRef.current);
         }
-      }, 30);
+      }, 40);
     }
   }, [isStarted, volume]);
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume;
+    if (audioRef.current && isStarted) {
+      // Smooth volume changes
+      const targetVolume = volume;
+      const currentVolume = audioRef.current.volume;
+      const step = (targetVolume - currentVolume) / 10;
+      
+      let counter = 0;
+      const volumeInterval = setInterval(() => {
+        if (audioRef.current && counter < 10) {
+          audioRef.current.volume = Math.max(0, Math.min(1, currentVolume + step * counter));
+          counter++;
+        } else {
+          clearInterval(volumeInterval);
+          if (audioRef.current) {
+            audioRef.current.volume = targetVolume;
+          }
+        }
+      }, 20);
+
+      return () => clearInterval(volumeInterval);
     }
-  }, [volume]);
+  }, [volume, isStarted]);
 
   const startMusic = () => setIsStarted(true);
 
