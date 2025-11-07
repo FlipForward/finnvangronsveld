@@ -23,7 +23,7 @@ const Navigation = () => {
 
       // Detect active section
       const sections = ['hero', 'about-section', 'portfolio-section', 'contact-section'];
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
 
       for (const sectionId of sections) {
         const section = document.getElementById(sectionId);
@@ -95,7 +95,7 @@ const Navigation = () => {
         <div className="hidden md:flex items-center gap-1 rounded-full bg-hero-accent px-2 py-1.5">
           <button
             onClick={() => scrollToSection('hero')}
-            className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-full ${
+            className={`px-3 py-1.5 text-sm font-medium transition-all duration-300 rounded-full hover:scale-105 ${
               activeSection === 'hero' 
                 ? 'bg-background text-hero-accent' 
                 : 'text-background/70 hover:text-background'
@@ -105,7 +105,7 @@ const Navigation = () => {
           </button>
           <button
             onClick={() => scrollToSection('about-section')}
-            className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-full ${
+            className={`px-3 py-1.5 text-sm font-medium transition-all duration-300 rounded-full hover:scale-105 ${
               activeSection === 'about-section' 
                 ? 'bg-background text-hero-accent' 
                 : 'text-background/70 hover:text-background'
@@ -115,7 +115,7 @@ const Navigation = () => {
           </button>
           <button
             onClick={() => scrollToSection('portfolio-section')}
-            className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-full ${
+            className={`px-3 py-1.5 text-sm font-medium transition-all duration-300 rounded-full hover:scale-105 ${
               activeSection === 'portfolio-section' 
                 ? 'bg-background text-hero-accent' 
                 : 'text-background/70 hover:text-background'
@@ -140,14 +140,18 @@ const Navigation = () => {
             variant="outline"
             size="sm"
             onClick={toggleLanguage}
-            className="rounded-full border-hero-accent/30 text-foreground/70 hover:text-foreground hover:border-hero-accent/50 h-8 px-3 py-1"
+            className="rounded-full border-hero-accent/30 text-foreground/70 hover:text-foreground hover:border-hero-accent/50 h-8 px-3 py-1 transition-all duration-300 hover:scale-105"
           >
             {language.toUpperCase()}
           </Button>
           <Button
             size="sm"
             onClick={() => scrollToSection('contact-section')}
-            className="rounded-full bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20 h-8 px-3 py-1"
+            className={`rounded-full h-8 px-3 py-1 transition-all duration-300 hover:scale-105 ${
+              activeSection === 'contact-section'
+                ? 'bg-hero-accent text-background border-hero-accent'
+                : 'bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20'
+            }`}
           >
             {t('nav.contact')}
           </Button>
@@ -189,14 +193,18 @@ const Navigation = () => {
             <Button
               size="sm"
               onClick={toggleLanguage}
-              className="rounded-lg bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20 mb-2"
+              className="rounded-lg bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20 mb-2 transition-all duration-300"
             >
               {language === 'en' ? 'NL' : 'EN'}
             </Button>
             <Button
               size="sm"
               onClick={() => scrollToSection('contact-section')}
-              className="rounded-lg bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20"
+              className={`rounded-lg transition-all duration-300 ${
+                activeSection === 'contact-section'
+                  ? 'bg-hero-accent text-background border-hero-accent'
+                  : 'bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20'
+              }`}
             >
               {t('nav.contact')}
             </Button>
