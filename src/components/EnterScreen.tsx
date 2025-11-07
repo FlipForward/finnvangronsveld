@@ -51,12 +51,12 @@ const EnterScreen = ({ onEnter }: EnterScreenProps) => {
     setIsExiting(true);
     setTimeout(() => {
       onEnter();
-    }, 800);
+    }, 500);
   };
 
   return (
     <div
-      className={`fixed inset-0 z-[101] bg-background flex flex-col items-center justify-center gap-4 transition-opacity duration-800 ${
+      className={`fixed inset-0 z-[101] bg-background flex flex-col items-center justify-center gap-4 transition-opacity duration-500 ${
         isExiting ? "opacity-0" : "opacity-100"
       }`}
     >

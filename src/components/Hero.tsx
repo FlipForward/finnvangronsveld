@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useTypingSound } from "@/hooks/useTypingSound";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useWhamSound } from "@/hooks/useWhamSound";
+import { useBackgroundMusic } from "@/hooks/useBackgroundMusic";
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -12,13 +13,14 @@ const Hero = () => {
   const { playTypingSound } = useTypingSound();
   const { t } = useLanguage();
   const { playWhamSound, stopWhamSound } = useWhamSound();
+  const { startMusic } = useBackgroundMusic();
 
   const finn = "FINN";
   const vangronsveld = "VANGRONSVELD";
 
   useEffect(() => {
-    // Start typing animation 1 second after component mounts (after enter screen)
-    const timer = setTimeout(() => setIsLoaded(true), 1000);
+    // Start typing animation immediately after enter screen
+    const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
@@ -46,6 +48,8 @@ const Hero = () => {
           } else {
             clearInterval(vansgronsInterval);
             setTypingComplete(true);
+            // Start background music after typing completes
+            startMusic();
           }
         }, 40);
       }

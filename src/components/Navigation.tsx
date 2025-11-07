@@ -11,14 +11,9 @@ const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showArrow, setShowArrow] = useState(false);
   const { language, setLanguage, t } = useLanguage();
-  const { volume, setVolume, startMusic } = useBackgroundMusic();
+  const { volume, setVolume } = useBackgroundMusic();
   const location = useLocation();
   const navigate = useNavigate();
-
-  // Start background music when navigation component mounts
-  useEffect(() => {
-    startMusic();
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
