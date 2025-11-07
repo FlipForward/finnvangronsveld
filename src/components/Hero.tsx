@@ -19,8 +19,8 @@ const Hero = () => {
   const vangronsveld = "VANGRONSVELD";
 
   useEffect(() => {
-    // Start typing animation after enter screen fully fades out
-    const timer = setTimeout(() => setIsLoaded(true), 700);
+    // Wait for enter screen to fully disappear before starting animation
+    const timer = setTimeout(() => setIsLoaded(true), 1200);
     return () => clearTimeout(timer);
   }, []);
 
