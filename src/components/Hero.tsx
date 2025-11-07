@@ -17,9 +17,8 @@ const Hero = () => {
   const vangronsveld = "VANGRONSVELD";
 
   useEffect(() => {
-    // Trigger animation immediately if returning, or after enter screen on first visit
-    const hasVisited = sessionStorage.getItem('hasVisited');
-    const timer = setTimeout(() => setIsLoaded(true), hasVisited ? 0 : 900);
+    // Start typing animation 1 second after component mounts (after enter screen)
+    const timer = setTimeout(() => setIsLoaded(true), 1000);
     return () => clearTimeout(timer);
   }, []);
 
