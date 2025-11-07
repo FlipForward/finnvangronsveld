@@ -11,6 +11,7 @@ import photo5 from "@/assets/gallery/finn-7.jpg";
 import photo6 from "@/assets/gallery/finn-8.jpg";
 import photo7 from "@/assets/gallery/finn-9.jpg";
 import photo8 from "@/assets/gallery/finn-10.jpg";
+import photo9 from "@/assets/gallery/finn-11.jpg";
 
 interface Photo {
   id: number;
@@ -26,10 +27,9 @@ const photos: Photo[] = [
   { id: 4, src: photo6, alt: "Photography by Finn Vangronsveld" },
   { id: 5, src: photo5, alt: "Photography by Finn Vangronsveld" },
   { id: 6, src: photo2, alt: "Outdoor summer snack platter with sparkling wine" },
-  
+
   { id: 7, src: photo3, alt: "Refreshing summer cocktails on outdoor table" },
   { id: 8, src: photo8, alt: "Photography by Finn Vangronsveld" },
-  
 ];
 
 const PhotoGallery = () => {
@@ -45,7 +45,7 @@ const PhotoGallery = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     if (sectionRef.current) {
@@ -67,15 +67,15 @@ const PhotoGallery = () => {
 
   const navigatePhoto = (direction: "prev" | "next") => {
     if (!selectedPhoto) return;
-    const currentIndex = photos.findIndex(p => p.id === selectedPhoto.id);
+    const currentIndex = photos.findIndex((p) => p.id === selectedPhoto.id);
     let newIndex;
-    
+
     if (direction === "prev") {
       newIndex = currentIndex > 0 ? currentIndex - 1 : photos.length - 1;
     } else {
       newIndex = currentIndex < photos.length - 1 ? currentIndex + 1 : 0;
     }
-    
+
     setSelectedPhoto(photos[newIndex]);
   };
 
@@ -88,12 +88,12 @@ const PhotoGallery = () => {
         <div className="absolute left-[35%] top-0 bottom-0 w-px bg-hero-accent/5" />
         <div className="absolute left-[62%] top-0 bottom-0 w-px bg-hero-accent/10" />
         <div className="absolute right-[18%] top-0 bottom-0 w-px bg-hero-accent/5" />
-        
+
         {/* Horizontal lines */}
         <div className="absolute top-[20%] left-0 right-0 h-px bg-hero-accent/10" />
         <div className="absolute top-[45%] left-0 right-0 h-px bg-hero-accent/5" />
         <div className="absolute top-[68%] left-0 right-0 h-px bg-hero-accent/10" />
-        
+
         {/* Accent dots */}
         <div className="absolute left-[15%] top-[20%] w-2 h-2 rounded-full bg-hero-accent/20" />
         <div className="absolute left-[62%] top-[45%] w-2 h-2 rounded-full bg-hero-accent/20" />
@@ -102,12 +102,12 @@ const PhotoGallery = () => {
 
       <div className="relative max-w-7xl mx-auto">
         {/* Header */}
-        <div className={`mb-12 transition-all duration-1000 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-        }`}>
-          <h2 className="text-4xl md:text-6xl font-anton text-hero-accent mb-4">
-            PORTFOLIO
-          </h2>
+        <div
+          className={`mb-12 transition-all duration-1000 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+          }`}
+        >
+          <h2 className="text-4xl md:text-6xl font-anton text-hero-accent mb-4">PORTFOLIO</h2>
           <div className="w-24 h-1 bg-hero-accent mb-8" />
           <div className="flex items-center justify-between">
             <p className="text-foreground/70 text-lg max-w-2xl">
@@ -195,11 +195,7 @@ const PhotoGallery = () => {
               </button>
 
               {/* Image */}
-              <img
-                src={selectedPhoto.src}
-                alt={selectedPhoto.alt}
-                className="max-w-full max-h-[90vh] object-contain"
-              />
+              <img src={selectedPhoto.src} alt={selectedPhoto.alt} className="max-w-full max-h-[90vh] object-contain" />
 
               {/* Caption */}
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
