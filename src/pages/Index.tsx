@@ -5,12 +5,10 @@ import PhotoGallery from "@/components/PhotoGallery";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import AudioWave from "@/components/AudioWave";
-import ScrollProgress from "@/components/ScrollProgress";
 
 const Index = () => {
   return (
     <div className="bg-background text-foreground">
-      <ScrollProgress />
       <AudioWave />
       <Navigation />
       <div id="hero">

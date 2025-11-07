@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { X, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { useParallax } from "@/hooks/useParallax";
 
 // Import Finn's real Pexels photos
 import photo1 from "@/assets/gallery/finn-2.jpg";
@@ -38,9 +37,7 @@ const PhotoGallery = () => {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [isExiting, setIsExiting] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const parallaxOffset = useParallax(0.15);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -57,20 +54,6 @@ const PhotoGallery = () => {
     }
 
     return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = sectionRef.current;
-      if (section) {
-        const rect = section.getBoundingClientRect();
-        setIsExiting(rect.bottom < window.innerHeight * 0.3);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const openLightbox = (photo: Photo) => {
@@ -100,10 +83,7 @@ const PhotoGallery = () => {
   return (
     <section ref={sectionRef} className="relative min-h-screen py-20 px-6 md:px-12 lg:px-16">
       {/* Abstract minimalistic grid background */}
-      <div 
-        className="absolute inset-0 overflow-hidden pointer-events-none"
-        style={{ transform: `translateY(${parallaxOffset * 0.8}px)` }}
-      >
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Vertical lines */}
         <div className="absolute left-[15%] top-0 bottom-0 w-px bg-hero-accent/10" />
         <div className="absolute left-[35%] top-0 bottom-0 w-px bg-hero-accent/5" />
@@ -125,7 +105,7 @@ const PhotoGallery = () => {
         {/* Header */}
         <div
           className={`mb-12 transition-all duration-1000 ${
-            isExiting ? "opacity-0 -translate-y-12" : isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
         >
           <h2 className="text-4xl md:text-6xl font-anton text-hero-accent mb-4">PORTFOLIO</h2>
@@ -147,9 +127,7 @@ const PhotoGallery = () => {
         </div>
 
         {/* Masonry grid preserving original ratios */}
-        <div className={`columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4 transition-all duration-1000 ${
-          isExiting ? "opacity-0 scale-95" : "opacity-100 scale-100"
-        }`}>
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
           {photos.map((photo, index) => (
             <div
               key={photo.id}
