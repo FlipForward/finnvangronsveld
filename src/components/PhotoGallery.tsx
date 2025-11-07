@@ -28,9 +28,9 @@ const photos: Photo[] = [
   { id: 5, src: photo5, alt: "Photography by Finn Vangronsveld" },
   { id: 6, src: photo2, alt: "Photography by Finn Vangronsveld" },
 
-  { id: 7, src: photo3, alt: "Photography by Finn Vangronsveld" },
-  { id: 8, src: photo8, alt: "Photography by Finn Vangronsveld" },
-  { id: 9, src: photo9, alt: "Photography by Finn Vangronsveld" },
+  { id: 7, src: photo9, alt: "Photography by Finn Vangronsveld" },
+  { id: 8, src: photo3, alt: "Photography by Finn Vangronsveld" },
+  { id: 9, src: photo8, alt: "Photography by Finn Vangronsveld" },
 ];
 
 const PhotoGallery = () => {
