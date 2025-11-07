@@ -14,42 +14,33 @@ const Footer = () => {
 
   return (
     <footer className="relative border-t border-hero-accent/20 bg-background">
-      <div className="px-6 md:px-12 lg:px-16 py-12">
-        <div className="max-w-7xl mx-auto">
-          {/* Top section */}
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
+      <div className="px-6 py-16">
+        <div className="max-w-4xl mx-auto">
+          {/* Centered content */}
+          <div className="flex flex-col items-center space-y-8">
             {/* Brand */}
-            <div className="space-y-4">
-              <h3 className="text-2xl font-anton text-hero-accent">FINN VANGRONSVELD</h3>
-            </div>
-
+            <h3 className="text-3xl font-anton text-hero-accent">FINN VANGRONSVELD</h3>
+            
             {/* Social */}
-            <div className="space-y-4">
-              <h4 className="text-sm font-medium text-hero-accent uppercase tracking-wider">Connect</h4>
-              <div className="grid grid-cols-3 gap-3">
-                {socialLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center w-10 h-10 rounded-full bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent hover:text-background transition-all hover:scale-110"
-                    aria-label={link.name}
-                  >
-                    <link.icon size={18} />
-                  </a>
-                ))}
-              </div>
+            <div className="flex items-center gap-4">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-12 h-12 rounded-full bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent hover:text-background transition-all hover:scale-110"
+                  aria-label={link.name}
+                >
+                  <link.icon size={20} />
+                </a>
+              ))}
             </div>
-          </div>
 
-          {/* Bottom section */}
-          <div className="pt-8 border-t border-hero-accent/10">
-            <div className="flex items-center justify-center">
-              <p className="text-foreground/50 text-sm">
-                © {currentYear} Finn Vangronsveld. All rights reserved.
-              </p>
-            </div>
+            {/* Copyright */}
+            <p className="text-foreground/50 text-sm">
+              © {currentYear} Finn Vangronsveld. All rights reserved.
+            </p>
           </div>
         </div>
       </div>
