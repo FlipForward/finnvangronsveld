@@ -19,8 +19,8 @@ const Hero = () => {
   const vangronsveld = "VANGRONSVELD";
 
   useEffect(() => {
-    // Wait for enter screen to fully disappear before starting animation
-    const timer = setTimeout(() => setIsLoaded(true), 1200);
+    // Start animation immediately when Hero mounts (it only mounts after EnterScreen is gone)
+    const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
 

@@ -17,6 +17,9 @@ const App = () => {
   const [showEnter, setShowEnter] = useState(() => {
     return !sessionStorage.getItem('hasVisited');
   });
+  const [contentReady, setContentReady] = useState(() => {
+    return sessionStorage.getItem('hasVisited') === 'true';
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -27,8 +30,10 @@ const App = () => {
           {showEnter && <EnterScreen onEnter={() => {
             setShowEnter(false);
             sessionStorage.setItem('hasVisited', 'true');
+            // Delay content rendering to ensure smooth transition
+            setTimeout(() => setContentReady(true), 100);
           }} />}
-          <BrowserRouter>
+          {contentReady && <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />
@@ -36,7 +41,7 @@ const App = () => {
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </BrowserRouter>
+          </BrowserRouter>}
         </TooltipProvider>
       </LanguageProvider>
     </QueryClientProvider>
