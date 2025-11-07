@@ -139,7 +139,7 @@ const ContactSection = () => {
               className="inline-flex items-center gap-2 text-hero-accent hover:text-hero-accent/80 transition-colors"
             >
               <Mail size={18} />
-              <span className="text-lg">finn@example.com</span>
+              <span className="text-lg">finnvangronsveld@gmail.com</span>
             </a>
           </div>
         </div>
