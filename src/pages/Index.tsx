@@ -5,10 +5,12 @@ import PhotoGallery from "@/components/PhotoGallery";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
+import FloatingParticles from "@/components/FloatingParticles";
 
 const Index = () => {
   return (
     <div className="bg-background text-foreground">
+      <FloatingParticles />
       <ScrollProgress />
       <Navigation />
       <div id="hero">
