@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useColor } from "@/contexts/ColorContext";
 
 interface EnterScreenProps {
   onEnter: () => void;
@@ -9,8 +10,15 @@ const EnterScreen = ({ onEnter }: EnterScreenProps) => {
   const [logoVisible, setLogoVisible] = useState(false);
   const [showText, setShowText] = useState(false);
   const [displayedText, setDisplayedText] = useState("");
+  const { hue } = useColor();
 
   const text = "click to open";
+
+  // Generate CSS filter for the current hue
+  const getIconFilter = (targetHue: number) => {
+    const hueRotate = targetHue - 180;
+    return `brightness(0) saturate(100%) invert(85%) sepia(35%) saturate(2719%) hue-rotate(${136 + hueRotate}deg) brightness(94%) contrast(101%)`;
+  };
 
   useEffect(() => {
     // Fade in logo immediately
@@ -60,12 +68,11 @@ const EnterScreen = ({ onEnter }: EnterScreenProps) => {
         <img
           src="/icon.png"
           alt="Logo"
-          className={`w-24 h-24 md:w-32 md:h-32 transition-all duration-1000 ${
+          className={`w-24 h-24 md:w-32 md:h-32 transition-all duration-200 ${
             logoVisible ? "opacity-100 scale-100 animate-pulse" : "opacity-0 scale-95"
           }`}
           style={{
-            filter:
-              "brightness(0) saturate(100%) invert(85%) sepia(35%) saturate(2719%) hue-rotate(136deg) brightness(94%) contrast(101%)",
+            filter: getIconFilter(hue),
             animationDuration: "2s",
           }}
         />
