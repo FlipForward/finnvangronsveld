@@ -16,12 +16,6 @@ const Navigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Generate CSS filter for the current hue - simplified calculation
-  const getIconFilter = (targetHue: number) => {
-    // The hue-rotate filter adjusts colors on the color wheel
-    // We start from a grayscale and colorize to the target hue
-    return `brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(1000%) hue-rotate(${targetHue - 50}deg) brightness(1.2)`;
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,15 +78,22 @@ const Navigation = () => {
             }`}
             strokeWidth={2}
           />
-          <img 
-            src="/icon.png" 
-            alt="Icon" 
-            className={`absolute inset-0 w-full h-full transition-all duration-200 ${
+          <div 
+            className={`absolute inset-0 w-full h-full transition-all duration-200 bg-hero-accent ${
               showArrow 
                 ? 'opacity-0 scale-50 rotate-90 pointer-events-none' 
                 : 'opacity-100 scale-100 rotate-0 pointer-events-auto'
             }`}
-            style={{ filter: getIconFilter(hue) }} 
+            style={{ 
+              maskImage: 'url(/icon.png)',
+              maskSize: 'contain',
+              maskRepeat: 'no-repeat',
+              maskPosition: 'center',
+              WebkitMaskImage: 'url(/icon.png)',
+              WebkitMaskSize: 'contain',
+              WebkitMaskRepeat: 'no-repeat',
+              WebkitMaskPosition: 'center',
+            }} 
           />
         </div>
       </button>

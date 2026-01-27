@@ -14,10 +14,6 @@ const EnterScreen = ({ onEnter }: EnterScreenProps) => {
 
   const text = "click to open";
 
-  // Generate CSS filter for the current hue - simplified calculation
-  const getIconFilter = (targetHue: number) => {
-    return `brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(1000%) hue-rotate(${targetHue - 50}deg) brightness(1.2)`;
-  };
 
   useEffect(() => {
     // Fade in logo immediately
@@ -64,14 +60,19 @@ const EnterScreen = ({ onEnter }: EnterScreenProps) => {
         onClick={handleEnter}
         className="cursor-pointer flex flex-col items-center gap-4"
       >
-        <img
-          src="/icon.png"
-          alt="Logo"
-          className={`w-24 h-24 md:w-32 md:h-32 transition-all duration-200 ${
+        <div
+          className={`w-24 h-24 md:w-32 md:h-32 bg-hero-accent transition-all duration-200 ${
             logoVisible ? "opacity-100 scale-100 animate-pulse" : "opacity-0 scale-95"
           }`}
           style={{
-            filter: getIconFilter(hue),
+            maskImage: 'url(/icon.png)',
+            maskSize: 'contain',
+            maskRepeat: 'no-repeat',
+            maskPosition: 'center',
+            WebkitMaskImage: 'url(/icon.png)',
+            WebkitMaskSize: 'contain',
+            WebkitMaskRepeat: 'no-repeat',
+            WebkitMaskPosition: 'center',
             animationDuration: "2s",
           }}
         />
