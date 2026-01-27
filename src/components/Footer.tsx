@@ -1,12 +1,13 @@
-import { Instagram, Music, Camera, Linkedin, Twitch } from "lucide-react";
+import { Instagram, Camera, Linkedin, Twitch } from "lucide-react";
 import SoundCloudIcon from "./icons/SoundCloudIcon";
+import SpotifyIcon from "./icons/SpotifyIcon";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
     { name: "Instagram", url: "https://www.instagram.com/finnvangronsveld?igsh=MXAxOTNvNnhjMXRidQ==", icon: Instagram },
-    { name: "ATLAZ", url: "https://www.instagram.com/atlazmusicbe?igsh=emd1OHRhazlpdnVy", icon: Music },
+    { name: "Spotify", url: "https://open.spotify.com/artist/3eXIEA0f6BK8ibuR8m9EkF?si=i2ZMTWo4TDqrr7MgSR9Myg", icon: SpotifyIcon },
     { name: "Twitch", url: "https://www.twitch.tv/mrfinnertytv", icon: Twitch },
     { name: "LinkedIn", url: "https://www.linkedin.com/in/finnvangronsveld/", icon: Linkedin },
     { name: "Pexels", url: "https://www.pexels.com/@finnvangronsveld/", icon: Camera },
