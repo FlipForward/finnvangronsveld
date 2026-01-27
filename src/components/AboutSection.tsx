@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { Instagram, Music, Camera, Linkedin, Twitch } from "lucide-react";
+import { Instagram, Camera, Linkedin, Twitch } from "lucide-react";
 import SoundCloudIcon from "./icons/SoundCloudIcon";
-
+import SpotifyIcon from "./icons/SpotifyIcon";
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -45,7 +45,7 @@ const AboutSection = () => {
     { name: "LinkedIn", url: "https://www.linkedin.com/in/finnvangronsveld/", icon: Linkedin },
     { name: "Photography", url: "https://www.pexels.com/@finnvangronsveld/", icon: Camera },
     { name: "SoundCloud", url: "https://soundcloud.com/atlazmusicbe", icon: SoundCloudIcon },
-    { name: "Spotify", url: "https://open.spotify.com/artist/3eXIEA0f6BK8ibuR8m9EkF?si=i2ZMTWo4TDqrr7MgSR9Myg", icon: Music },
+    { name: "Spotify", url: "https://open.spotify.com/artist/3eXIEA0f6BK8ibuR8m9EkF?si=i2ZMTWo4TDqrr7MgSR9Myg", icon: SpotifyIcon },
   ];
 
   return (
