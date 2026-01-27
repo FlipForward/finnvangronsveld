@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect } from "react";
-import feedbackHit from "@/assets/feedback-hit.mp4";
+import { useState, useEffect } from "react";
 
 interface EnterScreenProps {
   onEnter: () => void;
@@ -10,7 +9,6 @@ const EnterScreen = ({ onEnter }: EnterScreenProps) => {
   const [logoVisible, setLogoVisible] = useState(false);
   const [showText, setShowText] = useState(false);
   const [displayedText, setDisplayedText] = useState("");
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const text = "click to open";
 
@@ -43,11 +41,6 @@ const EnterScreen = ({ onEnter }: EnterScreenProps) => {
   }, [showText]);
 
   const handleEnter = () => {
-    // Play feedback hit instantly at full volume
-    audioRef.current = new Audio(feedbackHit);
-    audioRef.current.volume = 1.0;
-    audioRef.current.play().catch(err => console.log('Feedback hit play failed:', err));
-    
     setIsExiting(true);
     setTimeout(() => {
       onEnter();

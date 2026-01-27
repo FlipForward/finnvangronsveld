@@ -3,8 +3,6 @@ import { Button } from "./ui/button";
 import { Menu, X, ArrowUp } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { VolumeSlider } from "./VolumeSlider";
-import { useBackgroundMusic } from "@/hooks/useBackgroundMusic";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Navigation = () => {
@@ -12,7 +10,6 @@ const Navigation = () => {
   const [showArrow, setShowArrow] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const { language, setLanguage, t } = useLanguage();
-  const { volume, setVolume } = useBackgroundMusic();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -135,7 +132,6 @@ const Navigation = () => {
 
         {/* Right controls */}
         <div className="hidden md:flex items-center gap-3">
-          <VolumeSlider volume={volume} onVolumeChange={setVolume} />
           <Button
             variant="outline"
             size="sm"
@@ -187,9 +183,6 @@ const Navigation = () => {
               {t('nav.portfolio')}
             </button>
             <div className="h-px bg-hero-accent/20 my-2" />
-            <div className="px-4 py-2">
-              <VolumeSlider volume={volume} onVolumeChange={setVolume} />
-            </div>
             <Button
               size="sm"
               onClick={toggleLanguage}
