@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Instagram, Music, Camera, Linkedin, ExternalLink } from "lucide-react";
+import { Instagram, Music, Camera, Linkedin, Twitch } from "lucide-react";
 
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -40,7 +40,7 @@ const AboutSection = () => {
   const socialLinks = [
     { name: "Instagram (Personal)", url: "https://www.instagram.com/finnvangronsveld?igsh=MXAxOTNvNnhjMXRidQ==", icon: Instagram },
     { name: "Instagram (ATLAZ)", url: "https://www.instagram.com/atlazmusicbe?igsh=emd1OHRhazlpdnVy", icon: Instagram },
-    { name: "Twitch", url: "https://www.twitch.tv/mrfinnertytv", icon: ExternalLink },
+    { name: "Twitch", url: "https://www.twitch.tv/mrfinnertytv", icon: Twitch },
     { name: "LinkedIn", url: "https://www.linkedin.com/in/finnvangronsveld/", icon: Linkedin },
     { name: "Photography", url: "https://www.pexels.com/@finnvangronsveld/", icon: Camera },
     { name: "SoundCloud", url: "https://soundcloud.com/atlazmusicbe", icon: Music },
