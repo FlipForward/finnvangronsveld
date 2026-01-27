@@ -4,6 +4,7 @@ import { Menu, X, ArrowUp } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import ColorSlider from "./ColorSlider";
 
 const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -132,6 +133,7 @@ const Navigation = () => {
 
         {/* Right controls */}
         <div className="hidden md:flex items-center gap-3">
+          <ColorSlider />
           <Button
             variant="outline"
             size="sm"
@@ -183,10 +185,14 @@ const Navigation = () => {
               {t('nav.portfolio')}
             </button>
             <div className="h-px bg-hero-accent/20 my-2" />
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm text-foreground/70">Theme</span>
+              <ColorSlider />
+            </div>
             <Button
               size="sm"
               onClick={toggleLanguage}
-              className="rounded-lg bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20 mb-2 transition-all duration-300"
+              className="rounded-lg bg-hero-accent/10 border border-hero-accent/30 text-hero-accent hover:bg-hero-accent/20 mb-2 transition-all duration-300 w-full"
             >
               {language === 'en' ? 'NL' : 'EN'}
             </Button>
