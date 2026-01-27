@@ -7,20 +7,10 @@ const Hero = () => {
   const [displayedVangronsveld, setDisplayedVangronsveld] = useState("");
   const [typingComplete, setTypingComplete] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
   const { t } = useLanguage();
 
   const finn = "FINN";
   const vangronsveld = "VANGRONSVELD";
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     // Start animation immediately when Hero mounts (it only mounts after EnterScreen is gone)
@@ -58,11 +48,6 @@ const Hero = () => {
     return () => clearInterval(finnInterval);
   }, [isLoaded, finn, vangronsveld]);
 
-  // Parallax offsets - different speeds for depth
-  const parallaxSlow = scrollY * 0.1;
-  const parallaxMedium = scrollY * 0.25;
-  const parallaxFast = scrollY * 0.4;
-
   return (
     <section 
       className={`relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-32 md:pt-40 transition-opacity duration-500 ${
@@ -96,12 +81,7 @@ const Hero = () => {
       </div>
 
       {/* Wordmark container */}
-      <div 
-        className="relative"
-        style={{
-          transform: `translateY(${parallaxSlow}px)`,
-        }}
-      >
+      <div className="relative">
         {/* Construction notice - notification style from right */}
         <div 
           className={`mb-6 flex justify-end transition-all duration-700 delay-300 ${
@@ -131,14 +111,13 @@ const Hero = () => {
 
         {/* Wordmark */}
         <div>
-          {/* FINN - smaller line - moves slightly faster */}
+          {/* FINN - smaller line */}
           <h1 
             className="font-anton uppercase leading-[0.85] tracking-[-0.03em] mb-6 md:mb-8"
             style={{
               fontSize: 'clamp(3.5rem, 12vw, 10rem)',
               color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
               transition: 'color 5000ms linear',
-              transform: `translateY(${parallaxMedium - parallaxSlow}px)`,
             }}
           >
             {displayedFinn}
@@ -147,14 +126,13 @@ const Hero = () => {
             )}
           </h1>
 
-          {/* VANGRONSVELD - dominant line - moves even faster for more depth */}
+          {/* VANGRONSVELD - dominant line */}
           <h1 
             className="font-anton uppercase leading-[0.85] tracking-[-0.03em]"
             style={{
               fontSize: 'clamp(3rem, 16vw, 16rem)',
               color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
               transition: 'color 5000ms linear',
-              transform: `translateY(${parallaxFast - parallaxSlow}px)`,
             }}
           >
             {displayedVangronsveld}
@@ -175,14 +153,11 @@ const Hero = () => {
           }}
         />
 
-        {/* Micro labels below rules - subtle opposing parallax */}
+        {/* Micro labels below rules */}
         <div 
           className={`flex justify-between gap-4 mt-4 transition-opacity duration-500 ${
             typingComplete ? 'opacity-100' : 'opacity-0'
           }`}
-          style={{
-            transform: `translateY(${-parallaxSlow * 0.5}px)`,
-          }}
         >
           <span className="text-[10px] md:text-xs text-hero-accent/60 uppercase tracking-wider">
             {t('hero.label1')}
