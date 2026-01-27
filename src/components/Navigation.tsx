@@ -16,11 +16,11 @@ const Navigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Generate CSS filter for the current hue
+  // Generate CSS filter for the current hue - simplified calculation
   const getIconFilter = (targetHue: number) => {
-    // Base filter for cyan (180), adjust hue-rotate for other colors
-    const hueRotate = targetHue - 180;
-    return `brightness(0) saturate(100%) invert(85%) sepia(35%) saturate(2719%) hue-rotate(${136 + hueRotate}deg) brightness(94%) contrast(101%)`;
+    // The hue-rotate filter adjusts colors on the color wheel
+    // We start from a grayscale and colorize to the target hue
+    return `brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(1000%) hue-rotate(${targetHue - 50}deg) brightness(1.2)`;
   };
 
   useEffect(() => {

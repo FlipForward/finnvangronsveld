@@ -100,12 +100,12 @@ const Hero = () => {
 
         {/* Top rule */}
         <div 
-          className={`w-full h-[2px] mb-6 md:mb-8 origin-center ${
+          className={`w-full h-[2px] mb-6 md:mb-8 origin-center bg-hero-accent ${
             typingComplete ? 'scale-x-100' : 'scale-x-0'
           }`}
           style={{
-            backgroundColor: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
-            transition: 'transform 500ms ease-out, background-color 5000ms linear',
+            backgroundColor: isHovering ? '#000000' : undefined,
+            transition: 'transform 500ms ease-out',
           }}
         />
 
@@ -113,11 +113,10 @@ const Hero = () => {
         <div>
           {/* FINN - smaller line */}
           <h1 
-            className="font-anton uppercase leading-[0.85] tracking-[-0.03em] mb-6 md:mb-8"
+            className={`font-anton uppercase leading-[0.85] tracking-[-0.03em] mb-6 md:mb-8 ${isHovering ? '' : 'text-hero-accent'}`}
             style={{
               fontSize: 'clamp(3.5rem, 12vw, 10rem)',
-              color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
-              transition: 'color 5000ms linear',
+              color: isHovering ? '#000000' : undefined,
             }}
           >
             {displayedFinn}
@@ -128,11 +127,10 @@ const Hero = () => {
 
           {/* VANGRONSVELD - dominant line */}
           <h1 
-            className="font-anton uppercase leading-[0.85] tracking-[-0.03em]"
+            className={`font-anton uppercase leading-[0.85] tracking-[-0.03em] ${isHovering ? '' : 'text-hero-accent'}`}
             style={{
               fontSize: 'clamp(3rem, 16vw, 16rem)',
-              color: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
-              transition: 'color 5000ms linear',
+              color: isHovering ? '#000000' : undefined,
             }}
           >
             {displayedVangronsveld}
@@ -144,12 +142,12 @@ const Hero = () => {
 
         {/* Bottom rule */}
         <div 
-          className={`w-full h-[2px] mt-6 md:mt-8 origin-center ${
+          className={`w-full h-[2px] mt-6 md:mt-8 origin-center bg-hero-accent ${
             typingComplete ? 'scale-x-100' : 'scale-x-0'
           }`}
           style={{
-            backgroundColor: isHovering ? '#000000' : 'hsl(var(--hero-accent))',
-            transition: 'transform 500ms ease-out, background-color 5000ms linear',
+            backgroundColor: isHovering ? '#000000' : undefined,
+            transition: 'transform 500ms ease-out',
           }}
         />
 
