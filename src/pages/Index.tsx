@@ -6,10 +6,12 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import FloatingParticles from "@/components/FloatingParticles";
+import CustomCursor from "@/components/CustomCursor";
 
 const Index = () => {
   return (
     <div className="bg-background text-foreground">
+      <CustomCursor />
       <FloatingParticles />
       <ScrollProgress />
       <Navigation />
