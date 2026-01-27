@@ -94,6 +94,7 @@ All colors MUST be HSL.
 @layer base {
   * {
     @apply border-border;
+    transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out, fill 0.2s ease-out, stroke 0.2s ease-out, box-shadow 0.2s ease-out;
   }
 
   body {

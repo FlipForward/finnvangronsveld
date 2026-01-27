@@ -5,14 +5,23 @@ import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import ColorSlider from "./ColorSlider";
+import { useColor } from "@/contexts/ColorContext";
 
 const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showArrow, setShowArrow] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const { language, setLanguage, t } = useLanguage();
+  const { hue } = useColor();
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Generate CSS filter for the current hue
+  const getIconFilter = (targetHue: number) => {
+    // Base filter for cyan (180), adjust hue-rotate for other colors
+    const hueRotate = targetHue - 180;
+    return `brightness(0) saturate(100%) invert(85%) sepia(35%) saturate(2719%) hue-rotate(${136 + hueRotate}deg) brightness(94%) contrast(101%)`;
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,7 +77,7 @@ const Navigation = () => {
         <div className="relative w-10 h-10 md:w-12 md:h-12">
           <ArrowUp 
             size={40}
-            className={`absolute inset-0 text-hero-accent transition-all duration-500 ${
+            className={`absolute inset-0 text-hero-accent transition-all duration-200 ${
               showArrow 
                 ? 'opacity-100 scale-100 rotate-0 pointer-events-auto' 
                 : 'opacity-0 scale-50 -rotate-90 pointer-events-none'
@@ -78,12 +87,12 @@ const Navigation = () => {
           <img 
             src="/icon.png" 
             alt="Icon" 
-            className={`absolute inset-0 w-full h-full transition-all duration-500 ${
+            className={`absolute inset-0 w-full h-full transition-all duration-200 ${
               showArrow 
                 ? 'opacity-0 scale-50 rotate-90 pointer-events-none' 
                 : 'opacity-100 scale-100 rotate-0 pointer-events-auto'
             }`}
-            style={{ filter: 'brightness(0) saturate(100%) invert(85%) sepia(35%) saturate(2719%) hue-rotate(136deg) brightness(94%) contrast(101%)' }} 
+            style={{ filter: getIconFilter(hue) }} 
           />
         </div>
       </button>
