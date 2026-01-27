@@ -10,18 +10,20 @@ interface MagneticTarget {
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [magneticOffset, setMagneticOffset] = useState({ x: 0, y: 0 });
-  const [trailPosition, setTrailPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isMagnetic, setIsMagnetic] = useState(false);
+  
+  const trailPositionRef = useRef({ x: 0, y: 0 });
+  const [trailPosition, setTrailPosition] = useState({ x: 0, y: 0 });
   const magneticTargetsRef = useRef<MagneticTarget[]>([]);
   const mousePositionRef = useRef({ x: 0, y: 0 });
+  const animationFrameRef = useRef<number>();
 
-  const MAGNETIC_DISTANCE = 100; // Distance in pixels to start magnetic effect
-  const MAGNETIC_STRENGTH = 0.35; // How strong the pull is (0-1)
+  const MAGNETIC_DISTANCE = 100;
+  const MAGNETIC_STRENGTH = 0.35;
 
-  // Update magnetic targets periodically
   const updateMagneticTargets = useCallback(() => {
     const elements = document.querySelectorAll('button, [role="button"], [data-magnetic]');
     magneticTargetsRef.current = Array.from(elements).map((el) => {
@@ -35,7 +37,6 @@ const CustomCursor = () => {
     });
   }, []);
 
-  // Calculate magnetic offset
   const calculateMagneticOffset = useCallback((mouseX: number, mouseY: number) => {
     let closestDistance = Infinity;
     let offsetX = 0;
@@ -59,6 +60,29 @@ const CustomCursor = () => {
     setIsMagnetic(foundMagnetic);
     setMagneticOffset({ x: offsetX, y: offsetY });
   }, []);
+
+  // Smooth trail animation using requestAnimationFrame
+  useEffect(() => {
+    const animate = () => {
+      const targetX = mousePositionRef.current.x + magneticOffset.x;
+      const targetY = mousePositionRef.current.y + magneticOffset.y;
+      
+      trailPositionRef.current = {
+        x: trailPositionRef.current.x + (targetX - trailPositionRef.current.x) * 0.12,
+        y: trailPositionRef.current.y + (targetY - trailPositionRef.current.y) * 0.12,
+      };
+      
+      setTrailPosition({ ...trailPositionRef.current });
+      animationFrameRef.current = requestAnimationFrame(animate);
+    };
+
+    animationFrameRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [magneticOffset]);
 
   useEffect(() => {
     const updatePosition = (e: MouseEvent) => {
@@ -85,7 +109,6 @@ const CustomCursor = () => {
     document.documentElement.addEventListener("mouseleave", handleMouseLeave);
     document.documentElement.addEventListener("mouseenter", handleMouseEnter);
 
-    // Initial update and periodic refresh
     updateMagneticTargets();
     const interval = setInterval(updateMagneticTargets, 500);
 
@@ -100,23 +123,6 @@ const CustomCursor = () => {
     };
   }, [updateMagneticTargets, calculateMagneticOffset]);
 
-  // Smooth trail effect with magnetic influence
-  useEffect(() => {
-    const animateTrail = () => {
-      const targetX = position.x + magneticOffset.x;
-      const targetY = position.y + magneticOffset.y;
-      
-      setTrailPosition((prev) => ({
-        x: prev.x + (targetX - prev.x) * 0.15,
-        y: prev.y + (targetY - prev.y) * 0.15,
-      }));
-    };
-
-    const interval = setInterval(animateTrail, 16);
-    return () => clearInterval(interval);
-  }, [position, magneticOffset]);
-
-  // Detect hover on interactive elements
   useEffect(() => {
     const handleElementHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -128,7 +134,6 @@ const CustomCursor = () => {
     return () => window.removeEventListener("mouseover", handleElementHover);
   }, []);
 
-  // Hide on touch devices
   if (typeof window !== "undefined" && "ontouchstart" in window) {
     return null;
   }
@@ -140,50 +145,55 @@ const CustomCursor = () => {
     <>
       {/* Main cursor dot */}
       <div
-        className={`fixed pointer-events-none z-[9999] mix-blend-difference transition-transform duration-100 ${
+        className={`fixed pointer-events-none z-[9999] mix-blend-difference ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
         style={{
           left: cursorX,
           top: cursorY,
           transform: `translate(-50%, -50%) scale(${isClicking ? 0.8 : isHovering || isMagnetic ? 1.5 : 1})`,
+          transition: "transform 0.1s ease-out, opacity 0.15s ease-out",
         }}
       >
         <div
-          className={`rounded-full bg-hero-accent transition-all duration-200 ${
+          className={`rounded-full bg-hero-accent ${
             isHovering || isMagnetic ? "w-3 h-3" : "w-2 h-2"
           }`}
+          style={{ transition: "width 0.2s ease-out, height 0.2s ease-out" }}
         />
       </div>
 
       {/* Trailing ring */}
       <div
-        className={`fixed pointer-events-none z-[9998] transition-all duration-300 ${
+        className={`fixed pointer-events-none z-[9998] ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
         style={{
           left: trailPosition.x,
           top: trailPosition.y,
           transform: `translate(-50%, -50%) scale(${isClicking ? 0.8 : isHovering || isMagnetic ? 1.5 : 1})`,
+          transition: "transform 0.15s ease-out, opacity 0.15s ease-out",
         }}
       >
         <div
-          className={`rounded-full border transition-all duration-300 ${
+          className={`rounded-full border ${
             isHovering || isMagnetic
               ? "w-12 h-12 border-hero-accent/60 bg-hero-accent/10"
               : "w-8 h-8 border-hero-accent/40"
           }`}
+          style={{ transition: "width 0.2s ease-out, height 0.2s ease-out, border-color 0.2s ease-out, background-color 0.2s ease-out" }}
         />
       </div>
 
       {/* Glow effect on hover or magnetic */}
       {(isHovering || isMagnetic) && (
         <div
-          className="fixed pointer-events-none z-[9997] opacity-30 transition-opacity duration-300"
+          className="fixed pointer-events-none z-[9997] opacity-30"
           style={{
             left: trailPosition.x,
             top: trailPosition.y,
             transform: "translate(-50%, -50%)",
+            transition: "opacity 0.3s ease-out",
           }}
         >
           <div className="w-20 h-20 rounded-full bg-hero-accent blur-xl animate-pulse" />
