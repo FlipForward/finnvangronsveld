@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
+import { ColorProvider } from "./contexts/ColorContext";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Portfolio from "./pages/Portfolio";
@@ -23,27 +24,29 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          {showEnter && <EnterScreen onEnter={() => {
-            setShowEnter(false);
-            sessionStorage.setItem('hasVisited', 'true');
-            // Delay content rendering to ensure smooth transition
-            setTimeout(() => setContentReady(true), 100);
-          }} />}
-          {contentReady && <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>}
-        </TooltipProvider>
-      </LanguageProvider>
+      <ColorProvider>
+        <LanguageProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            {showEnter && <EnterScreen onEnter={() => {
+              setShowEnter(false);
+              sessionStorage.setItem('hasVisited', 'true');
+              // Delay content rendering to ensure smooth transition
+              setTimeout(() => setContentReady(true), 100);
+            }} />}
+            {contentReady && <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/portfolio" element={<Portfolio />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>}
+          </TooltipProvider>
+        </LanguageProvider>
+      </ColorProvider>
     </QueryClientProvider>
   );
 };
