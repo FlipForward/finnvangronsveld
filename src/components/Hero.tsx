@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import { useTypingSound } from "@/hooks/useTypingSound";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useWhamSound } from "@/hooks/useWhamSound";
-import { useBackgroundMusic } from "@/hooks/useBackgroundMusic";
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -10,10 +7,7 @@ const Hero = () => {
   const [displayedVangronsveld, setDisplayedVangronsveld] = useState("");
   const [typingComplete, setTypingComplete] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const { playTypingSound } = useTypingSound();
   const { t } = useLanguage();
-  const { playWhamSound, stopWhamSound } = useWhamSound();
-  const { startMusic } = useBackgroundMusic();
 
   const finn = "FINN";
   const vangronsveld = "VANGRONSVELD";
@@ -34,7 +28,6 @@ const Hero = () => {
     const finnInterval = setInterval(() => {
       if (finnIndex < finn.length) {
         setDisplayedFinn(finn.slice(0, finnIndex + 1));
-        playTypingSound();
         finnIndex++;
       } else {
         clearInterval(finnInterval);
@@ -43,20 +36,17 @@ const Hero = () => {
         const vansgronsInterval = setInterval(() => {
           if (vansgronsIndex < vangronsveld.length) {
             setDisplayedVangronsveld(vangronsveld.slice(0, vansgronsIndex + 1));
-            playTypingSound();
             vansgronsIndex++;
           } else {
             clearInterval(vansgronsInterval);
             setTypingComplete(true);
-            // Start background music after typing completes
-            startMusic();
           }
         }, 40);
       }
     }, 50);
 
     return () => clearInterval(finnInterval);
-  }, [isLoaded, finn, vangronsveld, playTypingSound]);
+  }, [isLoaded, finn, vangronsveld]);
 
   return (
     <section 
@@ -187,14 +177,8 @@ const Hero = () => {
           const aboutSection = document.querySelector('#about-section');
           aboutSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }}
-        onMouseEnter={() => {
-          setIsHovering(true);
-          playWhamSound();
-        }}
-        onMouseLeave={() => {
-          setIsHovering(false);
-          stopWhamSound();
-        }}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
         className={`absolute hover:scale-110 cursor-pointer z-10 ${
           typingComplete ? 'opacity-100' : 'opacity-0'
         } animate-bounce`}
