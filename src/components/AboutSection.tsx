@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Instagram, Music, Camera, Linkedin, Twitch } from "lucide-react";
+import SoundCloudIcon from "./icons/SoundCloudIcon";
 
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -43,7 +44,7 @@ const AboutSection = () => {
     { name: "Twitch", url: "https://www.twitch.tv/mrfinnertytv", icon: Twitch },
     { name: "LinkedIn", url: "https://www.linkedin.com/in/finnvangronsveld/", icon: Linkedin },
     { name: "Photography", url: "https://www.pexels.com/@finnvangronsveld/", icon: Camera },
-    { name: "SoundCloud", url: "https://soundcloud.com/atlazmusicbe", icon: Music },
+    { name: "SoundCloud", url: "https://soundcloud.com/atlazmusicbe", icon: SoundCloudIcon },
     { name: "Spotify", url: "https://open.spotify.com/artist/3eXIEA0f6BK8ibuR8m9EkF?si=i2ZMTWo4TDqrr7MgSR9Myg", icon: Music },
   ];
 

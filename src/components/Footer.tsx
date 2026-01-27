@@ -1,4 +1,5 @@
 import { Instagram, Music, Camera, Linkedin, Twitch } from "lucide-react";
+import SoundCloudIcon from "./icons/SoundCloudIcon";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -9,7 +10,7 @@ const Footer = () => {
     { name: "Twitch", url: "https://www.twitch.tv/mrfinnertytv", icon: Twitch },
     { name: "LinkedIn", url: "https://www.linkedin.com/in/finnvangronsveld/", icon: Linkedin },
     { name: "Pexels", url: "https://www.pexels.com/@finnvangronsveld/", icon: Camera },
-    { name: "SoundCloud", url: "https://soundcloud.com/atlazmusicbe", icon: Music },
+    { name: "SoundCloud", url: "https://soundcloud.com/atlazmusicbe", icon: SoundCloudIcon },
   ];
 
   return (
