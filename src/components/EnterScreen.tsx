@@ -1,92 +1,73 @@
 import { useState, useEffect } from "react";
-import { useColor } from "@/contexts/ColorContext";
 
 interface EnterScreenProps {
   onEnter: () => void;
 }
 
+const logoParts = [
+  // 1: Left vertical bar
+  <rect key="1" x="999.41" y="999.68" width="1498.58" height="7995.66" />,
+  // 2: Top horizontal bar
+  <rect key="2" x="999.41" y="999.68" width="8000.54" height="1493.69" />,
+  // 3: Middle horizontal bar
+  <rect key="3" x="3493.78" y="3496.5" width="5506.17" height="1501.02" />,
+  // 4: Bottom-left small rect
+  <rect key="4" x="3493.78" y="5993.31" width="1506.72" height="3002.03" />,
+  // 5: Circle bottom-right
+  <circle key="5" cx="7506.25" cy="7494.33" r="1501.02" />,
+];
+
 const EnterScreen = ({ onEnter }: EnterScreenProps) => {
   const [isExiting, setIsExiting] = useState(false);
-  const [logoVisible, setLogoVisible] = useState(false);
-  const [showText, setShowText] = useState(false);
-  const [displayedText, setDisplayedText] = useState("");
-  const { hue } = useColor();
-
-  const text = "click to open";
-
+  const [visibleParts, setVisibleParts] = useState<number[]>([]);
 
   useEffect(() => {
-    // Fade in logo immediately
-    setLogoVisible(true);
+    // Stagger each part appearing
+    logoParts.forEach((_, i) => {
+      setTimeout(() => {
+        setVisibleParts((prev) => [...prev, i]);
+      }, 400 + i * 350);
+    });
 
-    // Show text with typing effect after 1 second
-    const textTimer = setTimeout(() => {
-      setShowText(true);
-    }, 1000);
+    // Start exit after all parts visible + pause
+    const exitTimer = setTimeout(() => {
+      setIsExiting(true);
+    }, 400 + logoParts.length * 350 + 800);
 
-    return () => clearTimeout(textTimer);
-  }, []);
-
-  useEffect(() => {
-    if (!showText) return;
-
-    let index = 0;
-    const typingInterval = setInterval(() => {
-      if (index < text.length) {
-        setDisplayedText(text.slice(0, index + 1));
-        index++;
-      } else {
-        clearInterval(typingInterval);
-      }
-    }, 50);
-
-    return () => clearInterval(typingInterval);
-  }, [showText]);
-
-  const handleEnter = () => {
-    setIsExiting(true);
-    setTimeout(() => {
+    const completeTimer = setTimeout(() => {
       onEnter();
-    }, 500);
-  };
+    }, 400 + logoParts.length * 350 + 1300);
+
+    return () => {
+      clearTimeout(exitTimer);
+      clearTimeout(completeTimer);
+    };
+  }, [onEnter]);
 
   return (
     <div
-      className={`fixed inset-0 z-[101] bg-background flex flex-col items-center justify-center gap-4 transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[101] bg-background flex items-center justify-center transition-opacity duration-500 ${
         isExiting ? "opacity-0" : "opacity-100"
       }`}
     >
-      <div
-        onClick={handleEnter}
-        className="cursor-pointer flex flex-col items-center gap-4"
+      <svg
+        viewBox="0 0 10000 10000"
+        className="w-24 h-24 md:w-32 md:h-32 fill-hero-accent"
       >
-        <div
-          className={`w-24 h-24 md:w-32 md:h-32 bg-hero-accent transition-all duration-200 ${
-            logoVisible ? "opacity-100 scale-100 animate-pulse" : "opacity-0 scale-95"
-          }`}
-          style={{
-            maskImage: 'url(/icon.png)',
-            maskSize: 'contain',
-            maskRepeat: 'no-repeat',
-            maskPosition: 'center',
-            WebkitMaskImage: 'url(/icon.png)',
-            WebkitMaskSize: 'contain',
-            WebkitMaskRepeat: 'no-repeat',
-            WebkitMaskPosition: 'center',
-            animationDuration: "2s",
-          }}
-        />
-        <p
-          className={`text-hero-accent/70 text-sm uppercase tracking-wider transition-opacity duration-500 min-h-[20px] ${
-            showText ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          {displayedText}
-          {showText && displayedText.length < text.length && (
-            <span className="animate-pulse">|</span>
-          )}
-        </p>
-      </div>
+        {logoParts.map((part, i) => (
+          <g
+            key={i}
+            className="transition-all duration-500 ease-out"
+            style={{
+              opacity: visibleParts.includes(i) ? 1 : 0,
+              transform: visibleParts.includes(i) ? "scale(1)" : "scale(0.8)",
+              transformOrigin: "center",
+            }}
+          >
+            {part}
+          </g>
+        ))}
+      </svg>
     </div>
   );
 };
