@@ -52,16 +52,15 @@ const EnterScreen = ({ onEnter }: EnterScreenProps) => {
     >
       <svg
         viewBox="0 0 10000 10000"
-        className="w-24 h-24 md:w-32 md:h-32 fill-hero-accent"
+        className="w-24 h-24 md:w-32 md:h-32"
+        style={{ fill: "hsl(var(--hero-accent))" }}
       >
         {logoParts.map((part, i) => (
           <g
             key={i}
-            className="transition-all duration-500 ease-out"
             style={{
               opacity: visibleParts.includes(i) ? 1 : 0,
-              transform: visibleParts.includes(i) ? "scale(1)" : "scale(0.8)",
-              transformOrigin: "center",
+              transition: "opacity 0.5s ease-out",
             }}
           >
             {part}
